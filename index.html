@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Wealth Creators Real Estate Playbook + Deal Analyzer | Free Student Toolkit</title>
+<meta name="description" content="Free for Wealth Creators students: the Wealth Creators Real Estate Playbook (PDF) plus the Deal Analyzer calculator: learn how to buy, fund, run, and keep more from real estate, then run the math on real deals.">
+<style>
+:root{--green:#0B3D2E;--green2:#14532D;--green-soft:#E7F0EA;--gold:#C9A227;--gold2:#D4AF37;--gold-soft:#F7EFD2;--cream:#FBF7EE;--cream2:#F4EEDF;--ink:#1E2A24;--muted:#5B6B62;--line:#E2D9C3;--radius:14px;--shadow:0 1px 2px rgba(11,61,46,.06),0 6px 20px rgba(11,61,46,.07)}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+a{color:var(--green2)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 18px}
+.serif{font-family:Georgia,"Times New Roman",serif}
+/* top bar */
+.bar{background:var(--green);color:#fff;border-bottom:1px solid rgba(255,255,255,.08)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:10px;padding-bottom:10px}
+.brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-weight:700}
+.mark{width:36px;height:36px;border-radius:9px;background:var(--gold);color:var(--green);display:grid;place-items:center;font-weight:800;font-size:15px;flex:none}
+.bar nav{display:flex;gap:18px;font-size:14px}.bar nav a{color:#DCE8E1;text-decoration:none}.bar nav a:hover{color:var(--gold2)}
+@media (max-width:720px){.bar nav{display:none}}
+/* hero */
+.hero{background:linear-gradient(135deg,var(--green) 0%,var(--green2) 100%);color:#fff;padding:56px 0 64px;border-bottom:4px solid var(--gold)}
+.eyebrow{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold2);font-weight:700}
+.hero h1{margin:10px 0 0;font-size:clamp(32px,6vw,54px);line-height:1.08;font-weight:700;max-width:820px}
+.hero h1 span{color:var(--gold2)}
+.hero .lead{margin:18px 0 0;font-size:clamp(17px,2.3vw,20px);color:#DCE8E1;max-width:680px}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:14px 24px;font-weight:800;font-size:16px;text-decoration:none;cursor:pointer;border:0;line-height:1.2}
+.btn-gold{background:var(--gold);color:var(--green);box-shadow:0 2px 0 #9c7d16}.btn-gold:hover{background:var(--gold2)}
+.btn-line{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.55)}.btn-line:hover{border-color:var(--gold2);color:var(--gold2)}
+.btn-green{background:var(--green);color:#fff}.btn-green:hover{background:var(--green2)}
+.btn-outline{background:#fff;color:var(--green2);border:2px solid var(--green2)}
+.hero-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:38px;max-width:760px}
+@media (max-width:600px){.hero-pair{grid-template-columns:1fr}}
+.hp{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:14px 16px}
+.hp b{display:block;color:var(--gold2);font-size:15px}.hp span{color:#DCE8E1;font-size:14.5px}
+/* sections */
+section.s{padding:60px 0}section.s.alt{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.s h2{margin:6px 0 10px;font-size:clamp(26px,4vw,36px);color:var(--green);line-height:1.15}
+.s .intro{color:var(--muted);max-width:720px;margin:0 0 26px;font-size:17px}
+.kicker{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:800}
+.quote{border-left:4px solid var(--gold);background:var(--gold-soft);padding:14px 18px;border-radius:0 12px 12px 0;font-family:Georgia,serif;font-size:19px;color:var(--green);margin:0 0 28px;max-width:760px}
+.quote small{display:block;font:13px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:var(--muted);margin-top:6px}
+.chapters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:720px){.chapters{grid-template-columns:1fr}}
+.ch{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 18px 16px;display:grid;grid-template-columns:auto 1fr;gap:14px}
+.s.alt .ch{background:var(--cream)}
+.num{width:40px;height:40px;border-radius:50%;background:var(--green);color:var(--gold2);display:grid;place-items:center;font-weight:800;font-family:Georgia,serif}
+.ch h3{margin:0;font-size:18px;color:var(--green)}.ch p{margin:4px 0 8px;color:var(--muted);font-size:15px}
+.ch ul{margin:0;padding-left:18px;font-size:14.5px}.ch li{margin:2px 0}
+.features{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:860px){.features{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (max-width:520px){.features{grid-template-columns:1fr}}
+.f{background:var(--cream);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.f .ic{width:38px;height:38px;border-radius:10px;background:var(--gold-soft);border:1.5px solid var(--gold);color:var(--green);display:grid;place-items:center;font-weight:800;font-family:Georgia,serif;margin-bottom:10px}
+.f h3{margin:0 0 4px;font-size:17px;color:var(--green)}.f p{margin:0;color:var(--muted);font-size:15px}
+.steps5{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0}
+.steps5 span{background:var(--green);color:#fff;border-radius:999px;padding:6px 14px;font-size:14px;font-weight:700}.steps5 span b{color:var(--gold2);margin-right:6px}
+.flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;counter-reset:fl}
+@media (max-width:860px){.flow{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (max-width:520px){.flow{grid-template-columns:1fr}}
+.fl{background:#fff;border:1px solid var(--line);border-top:4px solid var(--gold);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+.fl .tag{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
+.fl h3{margin:4px 0 6px;font-size:17px;color:var(--green)}.fl p{margin:0;color:var(--muted);font-size:15px}
+.cta-band{background:linear-gradient(135deg,var(--green) 0%,var(--green2) 100%);color:#fff;border-radius:18px;padding:30px 26px;display:grid;grid-template-columns:1.3fr 1fr;gap:20px;align-items:center;border-bottom:4px solid var(--gold)}
+@media (max-width:760px){.cta-band{grid-template-columns:1fr}}
+.cta-band h2{color:#fff;margin:0}.cta-band p{color:#DCE8E1;margin:8px 0 0}
+.cta-band .ctas{margin-top:0;justify-content:flex-end}@media (max-width:760px){.cta-band .ctas{justify-content:flex-start}}
+.embed-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.embed-head{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--cream2);font-size:14px;color:var(--muted)}
+#wc-deal-analyzer{width:100%;height:1400px;border:0;display:block;background:var(--cream)}
+.ph{outline:2px dashed #C9A227;outline-offset:3px}
+.logo{display:block;height:40px;width:auto}
+.free{display:inline-block;background:var(--gold);color:var(--green);font-weight:800;font-size:12px;letter-spacing:.1em;text-transform:uppercase;border-radius:999px;padding:3px 10px;margin-right:8px;vertical-align:middle}
+.instructor{display:grid;grid-template-columns:260px 1fr;gap:30px;align-items:center}
+@media (max-width:720px){.instructor{grid-template-columns:1fr;gap:20px}.instructor picture{max-width:240px}}
+.instructor img{width:100%;height:auto;border-radius:16px;border:4px solid #fff;box-shadow:var(--shadow);display:block;background:var(--cream2)}
+.instructor h3{margin:0;font-size:24px;color:var(--green)}
+.instructor .role{color:var(--gold);font-weight:700;font-size:14.5px;margin:2px 0 12px}
+.instructor p{margin:0 0 12px;color:#33463c}
+footer{padding:30px 0 50px;color:var(--muted);font-size:13px}
+.flogo{height:30px;width:auto;display:block;margin-bottom:14px}
+.disclaimer{border-top:1px solid var(--line);padding-top:16px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Wealth Creators home"><img class="logo" src="assets/wc-logo-white.png" alt="Wealth Creators" width="162" height="40"></a>
+    <nav aria-label="Page sections"><a href="#playbook">The Playbook</a><a href="#calculator">The Calculator</a><a href="#together">How it works</a><a href="#instructor">Instructor</a><a href="#try">Try it</a></nav>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="eyebrow"><span class="free">Free</span>Student toolkit &middot; Real Estate Playbook + Deal Analyzer</div>
+    <h1 class="serif">Buy it like a business. <span>Run it like a business.</span> Exit it on purpose.</h1>
+    <p class="lead">From first door to 1031: how to buy it, fund it, run it, and keep more of what it makes. Then run the math on your own deals with the Wealth Creators Deal Analyzer. Both are free for current Wealth Creators students.</p>
+    <div class="ctas">
+      <a class="btn btn-gold" href="https://deals.wealthdomination.com/" target="_blank" rel="noopener">Try the calculator &rarr;</a>
+      <!-- FUTURE EMAIL/NAME FORM: to gate the PDF later, replace the playbook download links on this page
+     (search for "playbook-dl") with a form that captures name + email, then redirect to the PDF on submit. -->
+      <a class="btn btn-line playbook-dl" href="./Wealth-Creators-Real-Estate-Playbook.pdf" download="Wealth-Creators-Real-Estate-Playbook.pdf">Download the Playbook (PDF)</a>
+    </div>
+    <div class="hero-pair">
+      <div class="hp"><b>Wealth Creators Real Estate Playbook</b><span>A 49-slide, 8-section real estate masterclass from Marvin Mitchell, as a PDF.</span></div>
+      <div class="hp"><b>The Deal Analyzer</b><span>A step-by-step deal calculator that teaches as you go.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="playbook">
+  <div class="wrap">
+    <div class="kicker">Part 1 &middot; The Wealth Creators Real Estate Playbook</div>
+    <h2 class="serif">The whole owner's journey, in eight sections</h2>
+    <p class="intro">This is a working session, not a hype session. By the end you should be able to evaluate a deal, know how you'd fund it, and know what it costs to own.</p>
+    <blockquote class="quote">&ldquo;The question is not &lsquo;what am I worth?&rsquo; It is &lsquo;what does what I own produce?&rsquo;&rdquo;<small>From the playbook's Wealth Creator lens: dead equity vs. deployed equity</small></blockquote>
+    <div class="chapters">
+      <article class="ch"><div class="num">1</div><div><h3>The Types</h3><p>Every door you can own: active, passive, and everything in between.</p><ul><li>The ownership spectrum: control vs. your time</li><li>Single-family, house hacks, small multifamily, STRs, flips &amp; BRRRR</li><li>Commercial, niche and passive lanes (REITs, syndications, DSTs, notes)</li><li>Four questions that pick your lane</li></ul></div></article>
+      <article class="ch"><div class="num">2</div><div><h3>The Money</h3><p>How deals actually get funded when you don't have all the cash.</p><ul><li>The capital stack, layer by layer</li><li>Conventional, FHA/VA, DSCR and portfolio loans</li><li>Seller financing, HELOCs, private money, partnerships, SDIRAs</li><li>Seven loan terms that decide the deal, and what lenders actually check</li></ul></div></article>
+      <article class="ch"><div class="num">3</div><div><h3>The Deal</h3><p>Market screens, the math ladder, the four metrics, and real due diligence.</p><ul><li>Market first, property second</li><li>The math ladder from gross rent to cash flow</li><li>Cap rate, cash-on-cash, DSCR and GRM, plus what each one hides</li><li>Why the seller's pro forma always looks better</li></ul></div></article>
+      <article class="ch"><div class="num">4</div><div><h3>The Reality</h3><p>Owning it after you buy it.</p><ul><li>CapEx: the bill that always comes</li><li>Where every rent dollar actually goes</li><li>Self-manage or hire it out, and how to hire a manager</li><li>Tenant turnover, the silent margin killer</li></ul></div></article>
+      <article class="ch"><div class="num">5</div><div><h3>The Tax Game</h3><p>Keeping more of what it makes.</p><ul><li>Depreciation: the deduction you never write a check for</li><li>Cost segregation and bonus depreciation</li><li>The passive-loss catch</li><li>Other deductions, and the tax waiting at the exit</li></ul></div></article>
+      <article class="ch"><div class="num">6</div><div><h3>The 1031</h3><p>Deferral, done right.</p><ul><li>1031 vs. 1035: they're not the same</li><li>How the exchange works, step by step</li><li>Where exchanges go to die</li><li>DSTs as a landing spot, and the long game</li></ul></div></article>
+      <article class="ch"><div class="num">7</div><div><h3>The Guardrails</h3><p>How people lose money, and how you avoid being one of them.</p><ul><li>Eight ways people lose money in real estate</li><li>Your risk stack: insurance, entity, umbrella, liquidity</li></ul></div></article>
+      <article class="ch"><div class="num">8</div><div><h3>Your Move</h3><p>Your first 90 days and your written buy box.</p><ul><li>A 30/60/90-day plan</li><li>Writing a one-page buy box before you shop</li></ul></div></article>
+    </div>
+    <div class="ctas"><a class="btn btn-green playbook-dl" href="./Wealth-Creators-Real-Estate-Playbook.pdf" download="Wealth-Creators-Real-Estate-Playbook.pdf">Download the Playbook (PDF, 49 pages)</a><a class="btn btn-outline" href="./Wealth-Creators-Real-Estate-Playbook.pdf" target="_blank" rel="noopener">View in browser</a></div>
+  </div>
+</section>
+
+<section class="s alt" id="calculator">
+  <div class="wrap">
+    <div class="kicker">Part 2 &middot; The Deal Analyzer</div>
+    <h2 class="serif">A calculator that teaches while it calculates</h2>
+    <p class="intro">Enter a deal and the Wealth Creators Deal Analyzer takes it up the math ladder one step at a time, explaining each number in plain language.</p>
+    <div class="features">
+      <div class="f"><div class="ic">i</div><h3>Teaching tooltips</h3><p>Hover over or tap any <b>i</b> to see what an item measures, the formula, your own numbers plugged in, and why it matters.</p></div>
+      <div class="f"><div class="ic">&#10003;</div><h3>Industry benchmarks</h3><p>Each metric is checked against typical industry standards, with the playbook's view alongside where it differs. No guessing what &ldquo;good&rdquo; looks like.</p></div>
+      <div class="f"><div class="ic">1&rarr;5</div><h3>Step-by-step results</h3><p>A short inputs section, then results in order: income, expenses &amp; NOI, financing, returns, verdict.</p></div>
+      <div class="f"><div class="ic">!</div><h3>Pass / caution / fail</h3><p>Each check gets a status and a plain-language note, plus an overall verdict and the common fixes for a thin deal.</p></div>
+      <div class="f"><div class="ic">&#9112;</div><h3>Copy or download results</h3><p>One click copies a clean text summary of the deal for your notes, email or spreadsheet. You can also download it as a .txt file.</p></div>
+      <div class="f"><div class="ic">&#9733;</div><h3>Example deal included</h3><p>Load the example deal for a guided walkthrough, then clear it and run your own numbers. Works on phone and desktop.</p></div>
+    </div>
+    <div class="steps5" aria-label="Result steps"><span><b>1</b>Income</span><span><b>2</b>Expenses &amp; NOI</span><span><b>3</b>Financing</span><span><b>4</b>Returns</span><span><b>5</b>Verdict</span></div>
+  </div>
+</section>
+
+<section class="s" id="together">
+  <div class="wrap">
+    <div class="kicker">Better together</div>
+    <h2 class="serif">Learn the math. Then run the math.</h2>
+    <p class="intro">The playbook teaches how owners think. The calculator turns that thinking into a repeatable habit you use on every deal. Together, they're a free toolkit for your next deal.</p>
+    <div class="flow">
+      <div class="fl"><div class="tag">Learn</div><h3>Study the math ladder</h3><p>The playbook walks gross income &rarr; vacancy &rarr; NOI &rarr; debt service &rarr; cash flow, including the three rungs most pro formas skip: vacancy, CapEx and management.</p></div>
+      <div class="fl"><div class="tag">Run</div><h3>Underwrite your own numbers</h3><p>Plug in the real tax bill, a real insurance quote and market vacancy, not the seller's spreadsheet. The calculator runs all four metrics at once.</p></div>
+      <div class="fl"><div class="tag">Judge</div><h3>Check it against benchmarks</h3><p>See exactly where a deal passes, needs caution or fails, and be suspicious of any deal that works on only one metric.</p></div>
+      <div class="fl"><div class="tag">Repeat</div><h3>Practice before you buy</h3><p>The playbook's 90-day plan says to analyze 25 deals on paper before buying. Copy each result into your notes and build your buy box.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="s alt" id="instructor">
+  <div class="wrap">
+    <div class="kicker">Meet your instructor</div>
+    <div class="instructor" style="margin-top:14px">
+      <picture>
+        <source srcset="assets/marvin-mitchell.webp" type="image/webp">
+        <img src="assets/marvin-mitchell.jpg" alt="Marvin Mitchell, Founder of Wealth Creators" width="600" height="737" loading="lazy">
+      </picture>
+      <div>
+        <h3 class="serif">Marvin Mitchell</h3>
+        <div class="role">Founder of Wealth Creators &middot; Entrepreneur, Investor &amp; Wealth Strategist</div>
+        <p>Marvin Mitchell is an entrepreneur, investor, and financial educator with two decades of experience helping individuals and families build, protect, and grow their wealth. As the founder of Wealth Creators and Compass Wealth, formerly Compass Retirement Solutions, Marvin has built multimillion-dollar businesses around a clear mission: helping people turn their hard-earned income into lasting wealth and greater freedom.</p>
+        <p>Born and raised in St. Louis, Marvin's mission became personal when he watched his grandmother face cancer while struggling financially. Through Wealth Creators, he teaches professionals and entrepreneurs practical principles for creating additional income streams, understanding tax-efficient strategies, investing in assets, and building a legacy.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="try">
+  <div class="wrap">
+    <div class="cta-band">
+      <div><h2 class="serif">Run your first deal now</h2><p>Open the Deal Analyzer, load the example deal, and hover over any number to see how it's calculated.</p></div>
+      <div class="ctas"><a class="btn btn-gold" href="https://deals.wealthdomination.com/" target="_blank" rel="noopener">Try the calculator &rarr;</a><a class="btn btn-line playbook-dl" href="./Wealth-Creators-Real-Estate-Playbook.pdf" download="Wealth-Creators-Real-Estate-Playbook.pdf">Download the Playbook</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="s alt" id="live" style="padding-top:44px;border-top:0">
+  <div class="wrap">
+    <div class="kicker">Live</div>
+    <h2 class="serif">Try it right here</h2>
+    <div class="embed-card">
+      <div class="embed-head"><span>Wealth Creators Deal Analyzer</span><a href="https://deals.wealthdomination.com/" target="_blank" rel="noopener">Open full screen &#8599;</a></div>
+      <iframe id="wc-deal-analyzer" src="https://deals.wealthdomination.com/" title="Wealth Creators Deal Analyzer" loading="lazy" allow="clipboard-write"></iframe>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <div class="disclaimer"><img class="flogo" src="assets/wc-logo-green.png" alt="Wealth Creators" width="122" height="30" loading="lazy"><b>Educational content only, not financial, tax, legal, or investment advice.</b> The Wealth Creators Real Estate Playbook and the Deal Analyzer are for learning. The playbook's numbers are illustrative, and the calculator's benchmarks are typical figures that vary by market, property class, and lender. Nothing here is a recommendation to buy or sell any property or security. Run your own numbers, and have your CPA and attorney review anything before you act on it. &copy; <span id="yr">2026</span> Wealth Creators.</div>
+</footer>
+
+<script>
+/* Auto-size the embedded calculator to its content */
+window.addEventListener("message",function(e){
+  if(e.origin!=="https://deals.wealthdomination.com") return;
+  if(e.data&&e.data.type==="wcda:height"){var f=document.getElementById("wc-deal-analyzer");if(f)f.style.height=e.data.height+"px";}
+});
+document.getElementById("yr").textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
