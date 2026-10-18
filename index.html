@@ -36,6 +36,8 @@ header.top img{height:40px;width:auto;display:block}
 /* whole card clickable: primary link stretches over the card */
 .btn::after{content:"";position:absolute;inset:0;z-index:1}
 .sub{position:relative;z-index:2;color:var(--green);font-size:14px;font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.note{flex-basis:100%;margin:0;font-size:13px;color:var(--muted)}
+.note.ok{color:var(--green);font-weight:700}
 footer{border-top:1px solid var(--line);padding:22px 0 30px;text-align:center;font-size:13px;color:var(--muted)}
 footer strong{color:var(--green)}
 footer p{margin:4px 0}
@@ -62,7 +64,8 @@ footer p{margin:4px 0}
         <p>From first door to 1031: how to buy it, fund it, run it, and keep more of what it makes.</p>
         <div class="actions">
           <!-- FUTURE: email/name form can replace this direct download link -->
-          <a class="btn" href="./Wealth-Creators-Real-Estate-Playbook.pdf" download>Download the Playbook (PDF)</a>
+          <a class="btn" href="./Wealth-Creators-Real-Estate-Playbook.pdf" download="Wealth-Creators-Real-Estate-Playbook.pdf">&#11015; Download the Playbook (PDF)</a>
+          <p class="note">Check your Downloads folder.</p>
         </div>
       </div>
     </article>
@@ -75,8 +78,9 @@ footer p{margin:4px 0}
         <h2>Deal Analyzer</h2>
         <p>Run any rental deal step by step and check it against industry standards.</p>
         <div class="actions">
-          <a class="btn" href="https://deals.wealthdomination.com/" target="_blank" rel="noopener">Open the Deal Analyzer</a>
-          <a class="sub" href="./Wealth-Creators-Deal-Analyzer.html" download>Download for offline use</a>
+          <a class="btn" href="./Wealth-Creators-Deal-Analyzer.html" download="Wealth-Creators-Deal-Analyzer.html">&#11015; Download the Deal Analyzer</a>
+          <p class="note">Check your Downloads folder. Open the saved file in your browser.</p>
+          <a class="sub" href="https://deals.wealthdomination.com/" target="_blank" rel="noopener">Or use it online</a>
         </div>
       </div>
     </article>
@@ -86,5 +90,8 @@ footer p{margin:4px 0}
   <p><strong>Wealth Creators</strong> · Marvin Mitchell</p>
   <p>For educational purposes only. Not financial, investment, tax or legal advice.</p>
 </div></footer>
+<script>
+document.querySelectorAll('a.btn[download]').forEach(function(a){a.addEventListener('click',function(){var n=a.parentNode.querySelector('.note');if(n){n.textContent='Downloading\u2026 '+n.textContent;n.className='note ok';}});});
+</script>
 </body>
 </html>
