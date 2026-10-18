@@ -66,6 +66,7 @@ footer p{margin:4px 0}
           <!-- FUTURE: email/name form can replace this direct download link -->
           <a class="btn" href="./Wealth-Creators-Real-Estate-Playbook.pdf" download="Wealth-Creators-Real-Estate-Playbook.pdf">&#11015; Download the Playbook (PDF)</a>
           <p class="note">Check your Downloads folder.</p>
+          <a class="sub" href="./Wealth-Creators-Real-Estate-Playbook.pdf" target="_blank" rel="noopener">Or view in browser</a>
         </div>
       </div>
     </article>
@@ -91,7 +92,16 @@ footer p{margin:4px 0}
   <p>For educational purposes only. Not financial, investment, tax or legal advice.</p>
 </div></footer>
 <script>
-document.querySelectorAll('a.btn[download]').forEach(function(a){a.addEventListener('click',function(){var n=a.parentNode.querySelector('.note');if(n){n.textContent='Downloading\u2026 '+n.textContent;n.className='note ok';}});});
+document.querySelectorAll('a.btn[download]').forEach(function(a){a.addEventListener('click',function(e){
+var n=a.parentNode.querySelector('.note');if(n){n.textContent='Downloading\u2026 '+n.textContent;n.className='note ok';}
+if(!/\.pdf$/.test(a.getAttribute('href'))||!window.fetch||!window.URL)return;
+e.preventDefault();
+fetch(a.href).then(function(r){if(!r.ok)throw 0;return r.blob();}).then(function(b){
+var u=URL.createObjectURL(new Blob([b],{type:'application/octet-stream'}));var l=document.createElement('a');
+l.href=u;l.download=a.getAttribute('download');document.body.appendChild(l);l.click();
+setTimeout(function(){URL.revokeObjectURL(u);l.remove();},4000);
+}).catch(function(){window.location.href=a.href;});
+});});
 </script>
 </body>
 </html>
