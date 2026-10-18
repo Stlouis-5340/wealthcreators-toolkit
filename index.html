@@ -39,19 +39,28 @@ header.top img{height:40px;width:auto;display:block}
 .note{flex-basis:100%;margin:0;font-size:13px;color:var(--muted)}
 .note.ok{color:var(--green);font-weight:700}
 
-.gate{max-width:640px;margin:0 auto 40px;background:#fff;border:1px solid var(--line);border-top:4px solid var(--gold);border-radius:18px;padding:26px 24px 22px;text-align:center;box-shadow:0 10px 30px rgba(11,61,46,.08)}
-.gate h2{font-family:Georgia,"Times New Roman",serif;color:var(--green);font-size:26px;margin:0 0 6px}
-.gate p{margin:0 0 14px;color:var(--muted)}
-.gate iframe{width:100%;min-height:340px;border:0;display:block}
-.gate .already{display:inline-block;margin-top:10px;background:none;border:0;padding:0;font:inherit;font-size:13px;color:var(--green);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.cta{text-align:center;padding:0 0 60px}
+.bigbtn{background:var(--gold);color:var(--green);font:inherit;font-weight:800;font-size:22px;border:0;border-radius:14px;padding:20px 44px;box-shadow:0 4px 0 #9c7d16;cursor:pointer;max-width:100%}
+.bigbtn:hover{background:var(--gold2)}
+.bigbtn:focus-visible,.mclose:focus-visible{outline:3px solid var(--green);outline-offset:3px}
+.ctasub{margin:14px 0 0;color:var(--muted);font-size:14px}
+.modal{position:fixed;inset:0;z-index:100;background:rgba(11,61,46,.72);display:flex;align-items:center;justify-content:center;padding:16px;overflow-y:auto}
+.modal[hidden]{display:none}
+.mbox{position:relative;background:#fff;border-top:5px solid var(--gold);border-radius:18px;width:100%;max-width:520px;max-height:calc(100vh - 32px);overflow-y:auto;padding:28px 22px 18px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.35);margin:auto}
+.mbox h2{font-family:Georgia,"Times New Roman",serif;color:var(--green);font-size:24px;margin:0 28px 6px}
+.mbox p{margin:0 0 12px;color:var(--muted);font-size:14px}
+.mbox iframe{width:100%;min-height:420px;border:0;display:block}
+.mclose{position:absolute;top:8px;right:10px;width:40px;height:40px;border:0;border-radius:50%;background:var(--green);color:var(--gold2);font-size:26px;line-height:1;cursor:pointer}
+.already{display:inline-block;margin-top:8px;background:none;border:0;padding:0;font:inherit;font-size:13px;color:var(--green);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+body.modal-open{overflow:hidden}
 .locked{display:none!important}
 .lockmsg{margin:0;font-size:14px;font-weight:600;color:var(--green)}
-body.unlocked .gate,body.unlocked .lockmsg{display:none}
+body.unlocked .cta,body.unlocked .lockmsg{display:none}
 body:not(.unlocked) .card .btn::after{display:none}
 footer{border-top:1px solid var(--line);padding:22px 0 30px;text-align:center;font-size:13px;color:var(--muted)}
 footer strong{color:var(--green)}
 footer p{margin:4px 0}
-@media (max-width:760px){.cards{grid-template-columns:1fr;gap:22px}.hero{padding:36px 0 26px}header.top .wrap{height:64px}header.top img{height:34px}.body{padding:18px 18px 22px}.btn{width:100%;text-align:center}}
+@media (max-width:760px){.cards{grid-template-columns:1fr;gap:22px}.hero{padding:36px 0 26px}header.top .wrap{height:64px}header.top img{height:34px}.body{padding:18px 18px 22px}.btn{width:100%;text-align:center}.bigbtn{width:100%;padding:18px 20px;font-size:20px}}
 @media (prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
 </style>
 </head>
@@ -63,13 +72,6 @@ footer p{margin:4px 0}
     <h1>Your Real Estate <span>Toolkit</span></h1>
     <p>Free for Wealth Creators students: the playbook and the calculator, in one place.</p>
   </section>
-  <section class="gate" id="gate">
-    <h2>Get your free toolkit</h2>
-    <p>Enter your name and email to unlock the playbook and the calculator.</p>
-    
-    <iframe id="inline-ZKXTSPHvvFVda0jlb5hP" src="https://link.msgsndr.com/widget/form/ZKXTSPHvvFVda0jlb5hP" title="Real Estate Toolkit" data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-activation-type="alwaysActivated" data-deactivation-type="neverDeactivate" data-form-name="Real Estate Toolkit" data-form-id="ZKXTSPHvvFVda0jlb5hP" scrolling="no" loading="lazy"></iframe>
-    <button type="button" class="already" id="already">I've signed up &ndash; show my downloads</button>
-  </section>
   <section class="cards">
     <article class="card">
       <picture>
@@ -79,7 +81,7 @@ footer p{margin:4px 0}
       <div class="body">
         <h2>Real Estate Playbook</h2>
         <p>From first door to 1031: how to buy it, fund it, run it, and keep more of what it makes.</p>
-        <p class="lockmsg">&#128274; Sign up above to unlock.</p>
+        <p class="lockmsg">&#128274; Unlocks after you tap Download Toolkit.</p>
         <div class="actions locked">
           <!-- FUTURE: email/name form can replace this direct download link -->
           <a class="btn" href="./Wealth-Creators-Real-Estate-Playbook.pdf" download="Wealth-Creators-Real-Estate-Playbook.pdf">&#11015; Download the Playbook (PDF)</a>
@@ -96,7 +98,7 @@ footer p{margin:4px 0}
       <div class="body">
         <h2>Deal Analyzer</h2>
         <p>Run any rental deal step by step and check it against industry standards.</p>
-        <p class="lockmsg">&#128274; Sign up above to unlock.</p>
+        <p class="lockmsg">&#128274; Unlocks after you tap Download Toolkit.</p>
         <div class="actions locked">
           <a class="btn" href="./Wealth-Creators-Deal-Analyzer.html" download="Wealth-Creators-Deal-Analyzer.html">&#11015; Download the Deal Analyzer</a>
           <p class="note">Check your Downloads folder. Open the saved file in your browser.</p>
@@ -105,7 +107,20 @@ footer p{margin:4px 0}
       </div>
     </article>
   </section>
+  <section class="cta" id="cta">
+    <button type="button" class="bigbtn" id="openForm">&#11015; Download Toolkit</button>
+    <p class="ctasub">Free. Just tell us where to send it.</p>
+  </section>
 </main>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mtitle" hidden>
+  <div class="mbox">
+    <button type="button" class="mclose" id="mclose" aria-label="Close">&times;</button>
+    <h2 id="mtitle">Where should we send your toolkit?</h2>
+    <p>Your downloads unlock as soon as you submit.</p>
+    <iframe id="inline-ZKXTSPHvvFVda0jlb5hP" data-src="https://link.msgsndr.com/widget/form/ZKXTSPHvvFVda0jlb5hP" title="Real Estate Toolkit" data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-activation-type="alwaysActivated" data-deactivation-type="neverDeactivate" data-form-name="Real Estate Toolkit" data-form-id="ZKXTSPHvvFVda0jlb5hP" scrolling="no"></iframe>
+    <button type="button" class="already" id="already">I've signed up &ndash; show my downloads</button>
+  </div>
+</div>
 <footer><div class="wrap">
   <p><strong>Wealth Creators</strong> · Marvin Mitchell</p>
   <p>For educational purposes only. Not financial, investment, tax or legal advice.</p>
@@ -114,7 +129,7 @@ footer p{margin:4px 0}
 <script>
 (function(){
 var KEY='wc_toolkit_signed_up',b=document.body;
-function unlock(save){b.classList.add('unlocked');document.querySelectorAll('.actions.locked').forEach(function(a){a.classList.remove('locked');});
+function unlock(save){b.classList.add('unlocked');if(!document.getElementById('modal').hidden){document.getElementById('modal').hidden=true;b.classList.remove('modal-open');}document.querySelectorAll('.actions.locked').forEach(function(a){a.classList.remove('locked');});
 if(save){try{localStorage.setItem(KEY,'1');}catch(e){}}
 var c=document.querySelector('.cards');if(save&&c&&c.scrollIntoView)c.scrollIntoView({behavior:'smooth',block:'start'});}
 try{if(localStorage.getItem(KEY)==='1')unlock(false);}catch(e){}
@@ -123,6 +138,13 @@ if(!/(msgsndr\.com|leadconnectorhq\.com|gohighlevel\.com)$/.test((e.origin||'').
 var d=e.data,t='';try{t=typeof d==='string'?d:JSON.stringify(d);}catch(x){}
 if(/hl-form-submitted|form[_-]?submitted|form[_-]?submit|set-sticky-contacts|submission[_-]?success/i.test(t))unlock(true);
 });
+var m=document.getElementById('modal'),f=m.querySelector('iframe'),opener=null;
+function openM(){opener=document.activeElement;if(!f.getAttribute('src'))f.src=f.getAttribute('data-src');m.hidden=false;b.classList.add('modal-open');document.getElementById('mclose').focus();}
+function closeM(){m.hidden=true;b.classList.remove('modal-open');if(opener&&opener.focus)opener.focus();}
+document.getElementById('openForm').addEventListener('click',openM);
+document.getElementById('mclose').addEventListener('click',closeM);
+m.addEventListener('mousedown',function(e){if(e.target===m)closeM();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!m.hidden)closeM();});
 document.getElementById('already').addEventListener('click',function(){unlock(true);});
 window.__wcUnlock=unlock;
 })();
