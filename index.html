@@ -38,6 +38,16 @@ header.top img{height:40px;width:auto;display:block}
 .sub{position:relative;z-index:2;color:var(--green);font-size:14px;font-weight:600;text-decoration:underline;text-underline-offset:3px}
 .note{flex-basis:100%;margin:0;font-size:13px;color:var(--muted)}
 .note.ok{color:var(--green);font-weight:700}
+
+.gate{max-width:640px;margin:0 auto 40px;background:#fff;border:1px solid var(--line);border-top:4px solid var(--gold);border-radius:18px;padding:26px 24px 22px;text-align:center;box-shadow:0 10px 30px rgba(11,61,46,.08)}
+.gate h2{font-family:Georgia,"Times New Roman",serif;color:var(--green);font-size:26px;margin:0 0 6px}
+.gate p{margin:0 0 14px;color:var(--muted)}
+.gate iframe{width:100%;min-height:340px;border:0;display:block}
+.gate .already{display:inline-block;margin-top:10px;background:none;border:0;padding:0;font:inherit;font-size:13px;color:var(--green);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.locked{display:none!important}
+.lockmsg{margin:0;font-size:14px;font-weight:600;color:var(--green)}
+body.unlocked .gate,body.unlocked .lockmsg{display:none}
+body:not(.unlocked) .card .btn::after{display:none}
 footer{border-top:1px solid var(--line);padding:22px 0 30px;text-align:center;font-size:13px;color:var(--muted)}
 footer strong{color:var(--green)}
 footer p{margin:4px 0}
@@ -53,6 +63,13 @@ footer p{margin:4px 0}
     <h1>Your Real Estate <span>Toolkit</span></h1>
     <p>Free for Wealth Creators students: the playbook and the calculator, in one place.</p>
   </section>
+  <section class="gate" id="gate">
+    <h2>Get your free toolkit</h2>
+    <p>Enter your name and email to unlock the playbook and the calculator.</p>
+    
+    <iframe id="inline-ZKXTSPHvvFVda0jlb5hP" src="https://link.msgsndr.com/widget/form/ZKXTSPHvvFVda0jlb5hP" title="Real Estate Toolkit" data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-activation-type="alwaysActivated" data-deactivation-type="neverDeactivate" data-form-name="Real Estate Toolkit" data-form-id="ZKXTSPHvvFVda0jlb5hP" scrolling="no" loading="lazy"></iframe>
+    <button type="button" class="already" id="already">I've signed up &ndash; show my downloads</button>
+  </section>
   <section class="cards">
     <article class="card">
       <picture>
@@ -62,7 +79,8 @@ footer p{margin:4px 0}
       <div class="body">
         <h2>Real Estate Playbook</h2>
         <p>From first door to 1031: how to buy it, fund it, run it, and keep more of what it makes.</p>
-        <div class="actions">
+        <p class="lockmsg">&#128274; Sign up above to unlock.</p>
+        <div class="actions locked">
           <!-- FUTURE: email/name form can replace this direct download link -->
           <a class="btn" href="./Wealth-Creators-Real-Estate-Playbook.pdf" download="Wealth-Creators-Real-Estate-Playbook.pdf">&#11015; Download the Playbook (PDF)</a>
           <p class="note">Check your Downloads folder.</p>
@@ -78,7 +96,8 @@ footer p{margin:4px 0}
       <div class="body">
         <h2>Deal Analyzer</h2>
         <p>Run any rental deal step by step and check it against industry standards.</p>
-        <div class="actions">
+        <p class="lockmsg">&#128274; Sign up above to unlock.</p>
+        <div class="actions locked">
           <a class="btn" href="./Wealth-Creators-Deal-Analyzer.html" download="Wealth-Creators-Deal-Analyzer.html">&#11015; Download the Deal Analyzer</a>
           <p class="note">Check your Downloads folder. Open the saved file in your browser.</p>
           <a class="sub" href="https://deals.wealthdomination.com/" target="_blank" rel="noopener">Or use it online</a>
@@ -91,6 +110,23 @@ footer p{margin:4px 0}
   <p><strong>Wealth Creators</strong> · Marvin Mitchell</p>
   <p>For educational purposes only. Not financial, investment, tax or legal advice.</p>
 </div></footer>
+<script src="https://link.msgsndr.com/js/form_embed.js" async></script>
+<script>
+(function(){
+var KEY='wc_toolkit_signed_up',b=document.body;
+function unlock(save){b.classList.add('unlocked');document.querySelectorAll('.actions.locked').forEach(function(a){a.classList.remove('locked');});
+if(save){try{localStorage.setItem(KEY,'1');}catch(e){}}
+var c=document.querySelector('.cards');if(save&&c&&c.scrollIntoView)c.scrollIntoView({behavior:'smooth',block:'start'});}
+try{if(localStorage.getItem(KEY)==='1')unlock(false);}catch(e){}
+window.addEventListener('message',function(e){
+if(!/(msgsndr\.com|leadconnectorhq\.com|gohighlevel\.com)$/.test((e.origin||'').replace(/^https?:\/\//,'')))return;
+var d=e.data,t='';try{t=typeof d==='string'?d:JSON.stringify(d);}catch(x){}
+if(/hl-form-submitted|form[_-]?submitted|form[_-]?submit|set-sticky-contacts|submission[_-]?success/i.test(t))unlock(true);
+});
+document.getElementById('already').addEventListener('click',function(){unlock(true);});
+window.__wcUnlock=unlock;
+})();
+</script>
 <script>
 document.querySelectorAll('a.btn[download]').forEach(function(a){a.addEventListener('click',function(e){
 var n=a.parentNode.querySelector('.note');if(n){n.textContent='Downloading\u2026 '+n.textContent;n.className='note ok';}
