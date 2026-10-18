@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wealth Creators Deal Analyzer</title>
+<style>
+:root{
+  --green:#0B3D2E; --green2:#14532D; --green-soft:#E7F0EA;
+  --gold:#C9A227; --gold2:#D4AF37; --gold-soft:#F7EFD2;
+  --cream:#FBF7EE; --cream2:#F4EEDF; --ink:#1E2A24; --muted:#5B6B62; --line:#E2D9C3;
+  --pass:#1F7A4D; --pass-bg:#E3F3EA; --caution:#9A6B00; --caution-bg:#FCF1D4; --fail:#B3261E; --fail-bg:#FBE4E2; --info:#3E5C76; --info-bg:#E6EEF5;
+  --radius:14px; --shadow:0 1px 2px rgba(11,61,46,.06),0 6px 20px rgba(11,61,46,.07);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+header.hero{background:linear-gradient(135deg,var(--green) 0%,var(--green2) 100%);color:#fff;padding:28px 18px 34px;border-bottom:4px solid var(--gold)}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.mark{width:42px;height:42px;border-radius:10px;background:var(--gold);color:var(--green);display:grid;place-items:center;font-weight:800;font-size:17px;letter-spacing:.5px;flex:none}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold2);font-weight:700}
+h1{margin:0;font-size:clamp(26px,5vw,36px);line-height:1.15;font-family:Georgia,"Times New Roman",serif;font-weight:700}
+h1 span{color:var(--gold2)}
+.hero p{margin:10px 0 0;color:#DCE8E1;max-width:640px}
+main{padding:22px 0 40px}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.inputs{padding:18px}
+.inputs h2,.section-title{margin:0 0 4px;font-size:20px;color:var(--green);font-family:Georgia,serif}
+.sub{color:var(--muted);font-size:14px;margin:0 0 14px}
+fieldset{border:0;margin:0 0 14px;padding:0}
+legend{font-weight:700;color:var(--green2);font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;padding:0;display:flex;align-items:center;gap:8px}
+legend::after{content:"";flex:1;height:1px;background:var(--line)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:760px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:460px){.grid{grid-template-columns:1fr}}
+.field label{display:flex;align-items:center;gap:6px;font-size:13.5px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.inbox{display:flex;align-items:stretch;border:1.5px solid var(--line);border-radius:10px;background:var(--cream);overflow:hidden;transition:border-color .15s}
+.inbox:focus-within{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,162,39,.2)}
+.inbox .affix{padding:0 10px;display:flex;align-items:center;color:var(--muted);font-size:14px;background:var(--cream2)}
+.inbox input,.inbox select{flex:1;min-width:0;border:0;background:transparent;padding:10px;font:inherit;color:var(--ink);outline:none}
+.hint{font-size:12px;color:var(--muted);margin-top:3px}
+details.adv{border:1px dashed var(--line);border-radius:12px;padding:10px 12px;margin:4px 0 14px;background:var(--cream)}
+details.adv summary{cursor:pointer;font-weight:700;color:var(--green2);font-size:14px}
+details.adv[open] summary{margin-bottom:12px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.topactions{margin:4px 0 16px}
+button.primary{background:var(--gold);color:var(--green);border:0;border-radius:999px;padding:12px 22px;font-weight:800;font-size:16px;cursor:pointer;box-shadow:0 2px 0 #9c7d16}
+button.primary:hover{background:var(--gold2)}
+button.ghost{background:transparent;border:1.5px solid var(--green2);color:var(--green2);border-radius:999px;padding:10px 16px;font-weight:700;cursor:pointer}
+.tip{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--gold);background:var(--gold-soft);color:var(--green);font:700 12px/1 Georgia,serif;display:inline-grid;place-items:center;cursor:help;padding:0;flex:none}
+.tip:hover,.tip:focus-visible,.tip[aria-expanded="true"]{background:var(--gold);outline:none}
+#tipPop{position:absolute;z-index:50;max-width:340px;background:var(--green);color:#F3F7F4;border-radius:12px;padding:14px 14px 12px;box-shadow:0 12px 34px rgba(0,0,0,.25);font-size:14px;line-height:1.45;border-top:3px solid var(--gold)}
+#tipPop h4{margin:0 0 6px;color:var(--gold2);font-size:15px}
+#tipPop .row{margin:6px 0}
+#tipPop .k{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold2);font-weight:700}
+#tipPop code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;background:rgba(255,255,255,.08);padding:2px 5px;border-radius:5px;display:inline-block;white-space:normal}
+#tipPop .bench{background:rgba(212,175,55,.14);border-left:3px solid var(--gold2);padding:6px 8px;border-radius:6px}
+#tipPop .src{font-size:11.5px;color:#B7CBBF;margin-top:6px}
+#tipPop .close{display:none;position:absolute;top:6px;right:8px;background:none;border:0;color:#fff;font-size:22px;cursor:pointer;line-height:1}
+#tipPop.sheet{position:fixed;left:8px!important;right:8px;bottom:8px;top:auto!important;max-width:none;max-height:70vh;overflow:auto}
+#tipPop.sheet .close{display:block}
+#results{margin-top:22px}
+#results[hidden]{display:none}
+.summary{padding:18px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;border-left:6px solid var(--gold)}
+.summary.pass{border-left-color:var(--pass)} .summary.fail{border-left-color:var(--fail)} .summary.caution{border-left-color:var(--gold)}
+.badge-big{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font-size:30px;font-weight:800;color:#fff}
+.badge-big.pass{background:var(--pass)} .badge-big.caution{background:var(--gold)} .badge-big.fail{background:var(--fail)}
+.summary h3{margin:0;font-size:21px;font-family:Georgia,serif;color:var(--green)}
+.summary p{margin:4px 0 0;color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:14px 0 0;grid-column:1/-1}
+@media (max-width:640px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.summary{grid-template-columns:1fr}}
+.kpi{background:var(--cream);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.kpi .lbl{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.kpi .val{font-size:22px;font-weight:800;color:var(--green)}
+.steps{display:grid;gap:14px;margin-top:16px}
+.step{overflow:hidden}
+.step-head{width:100%;display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;border:0;cursor:pointer;text-align:left;font:inherit}
+.step-num{width:34px;height:34px;border-radius:50%;background:var(--green);color:var(--gold2);display:grid;place-items:center;font-weight:800;flex:none}
+.step-title{flex:1}
+.step-title b{display:block;color:var(--green);font-size:17px}
+.step-title small{color:var(--muted)}
+.chev{transition:transform .2s;color:var(--green2);font-size:18px}
+.step[aria-expanded="false"] .chev{transform:rotate(-90deg)}
+.step-body{padding:0 16px 16px;border-top:1px solid var(--line)}
+.step[aria-expanded="false"] .step-body{display:none}
+.explain{background:var(--green-soft);border-radius:10px;padding:10px 12px;margin:14px 0 10px;font-size:14.5px;color:#22392E}
+.explain b{color:var(--green)}
+.rows{display:grid;gap:0}
+.r{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:9px 2px;border-bottom:1px solid #F0EADB}
+.r:last-child{border-bottom:0}
+.r .name{display:flex;align-items:center;gap:7px;font-size:15px}
+.r .num{font-variant-numeric:tabular-nums;font-weight:700;text-align:right;white-space:nowrap}
+.r.total .name,.r.total .num{font-weight:800;color:var(--green)}
+.r.total{border-top:2px solid var(--green);border-bottom:0;margin-top:2px}
+.r.neg .num{color:#6c4a3a}
+.pill{font-size:11.5px;font-weight:800;border-radius:999px;padding:3px 9px;white-space:nowrap;letter-spacing:.02em;min-width:66px;text-align:center}
+.pill.pass{background:var(--pass-bg);color:var(--pass)} .pill.caution{background:var(--caution-bg);color:var(--caution)} .pill.fail{background:var(--fail-bg);color:var(--fail)} .pill.info{background:var(--info-bg);color:var(--info)} .pill.none{visibility:hidden}
+.note{font-size:13px;color:var(--muted);margin:2px 0 0;grid-column:1/-1}
+ul.verdict-list{margin:10px 0 0;padding-left:0;list-style:none;display:grid;gap:6px}
+ul.verdict-list li{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:start;font-size:14.5px}
+.levers{background:var(--gold-soft);border:1px solid #EAD9A0;border-radius:10px;padding:10px 12px;margin-top:12px;font-size:14.5px}
+footer{padding:20px 0 40px;color:var(--muted);font-size:12.5px}
+.disclaimer{border-top:1px solid var(--line);padding-top:12px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.sharebar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:12px 0 0}
+.sharebar .primary{padding:10px 18px;font-size:15px}
+.sharebar .ghost{padding:9px 15px;font-size:14px}
+.copymsg{font-weight:700;color:var(--pass);font-size:14px;opacity:0;transition:opacity .2s}
+.copymsg.show{opacity:1}
+.copymsg.err{color:var(--fail)}
+@media print{.tip,#tipPop,.actions,.sharebar{display:none!important}.step[aria-expanded="false"] .step-body{display:block}}
+</style>
+<style>
+#tipPop .pb{margin-top:6px;padding:6px 8px;border-radius:6px;background:rgba(255,255,255,.06);font-size:13px;color:#DCE8E1}
+#tipPop .pb .k{color:#B7CBBF}
+.note .pbn{display:block;color:#7a6a3a;margin-top:1px}
+.formmsg{display:none;margin:12px 0 0;padding:10px 12px;border-radius:10px;font-size:14px}
+.formmsg.err{display:block;background:var(--fail-bg);color:var(--fail);border:1px solid #F1C3BF}
+.notice{grid-column:1/-1;font-size:13px;color:var(--caution);background:var(--caution-bg);border-radius:8px;padding:6px 10px;margin-top:8px}
+input::placeholder{color:#A69F8C}
+.field.missing .inbox{border-color:var(--fail)}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="brand"><div class="mark" aria-hidden="true">WC</div><div class="eyebrow">Wealth Creators &middot; Real Estate</div></div>
+    <h1>Wealth Creators <span>Deal Analyzer</span></h1>
+    <p>Take a rental deal through the math step by step: income, expenses, financing, returns, verdict. Hover over or tap any <b style="color:var(--gold2)">i</b> to see the formula, the industry standard, and what your playbook says.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="card inputs" aria-labelledby="inTitle">
+    <h2 id="inTitle">Your deal</h2>
+    <p class="sub">Use your own numbers: the real tax bill, a real insurance quote, and market vacancy, not the seller's pro forma. Fields marked * are required. Any expense you leave blank counts as $0. Want a walkthrough first? Load the example deal.</p>
+    <div class="actions topactions">
+      <button type="button" class="ghost" id="exampleBtn">Load example deal</button>
+      <button type="button" class="ghost" id="clearBtn">Clear / new deal</button>
+    </div>
+
+    <fieldset>
+      <legend>Property &amp; rent</legend>
+      <div class="grid">
+        <div class="field"><label for="price">Purchase price * <button type="button" class="tip" data-tip="price" aria-label="About purchase price">i</button></label><div class="inbox"><span class="affix">$</span><input id="price" type="number" inputmode="decimal" min="0" step="1000" placeholder="e.g. 420000" required></div></div>
+        <div class="field"><label for="units">Number of units * <button type="button" class="tip" data-tip="units" aria-label="About units">i</button></label><div class="inbox"><input id="units" type="number" inputmode="numeric" min="1" step="1" placeholder="e.g. 4" required></div></div>
+        <div class="field"><label for="rent">Monthly rent per unit * <button type="button" class="tip" data-tip="rent" aria-label="About rent">i</button></label><div class="inbox"><span class="affix">$</span><input id="rent" type="number" inputmode="decimal" min="0" step="25" placeholder="e.g. 1250" required></div></div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Annual operating costs</legend>
+      <div class="grid">
+        <div class="field"><label for="vacancy">Vacancy &amp; credit loss <button type="button" class="tip" data-tip="vacancy" aria-label="About vacancy">i</button></label><div class="inbox"><input id="vacancy" type="number" inputmode="decimal" min="0" max="100" step="0.5" placeholder="5&ndash;10 typical"><span class="affix">%</span></div></div>
+        <div class="field"><label for="taxes">Property taxes / yr <button type="button" class="tip" data-tip="taxes" aria-label="About property taxes">i</button></label><div class="inbox"><span class="affix">$</span><input id="taxes" type="number" inputmode="decimal" min="0" step="100" placeholder="from the tax bill"></div></div>
+        <div class="field"><label for="insurance">Insurance / yr <button type="button" class="tip" data-tip="insurance" aria-label="About insurance">i</button></label><div class="inbox"><span class="affix">$</span><input id="insurance" type="number" inputmode="decimal" min="0" step="100" placeholder="from a real quote"></div></div>
+        <div class="field"><label for="maint">Maintenance &amp; repairs / yr <button type="button" class="tip" data-tip="maint" aria-label="About maintenance">i</button></label><div class="inbox"><span class="affix">$</span><input id="maint" type="number" inputmode="decimal" min="0" step="100" placeholder="5&ndash;10% of rent typical"></div></div>
+        <div class="field"><label for="capex">CapEx reserve / yr <button type="button" class="tip" data-tip="capex" aria-label="About CapEx reserve">i</button></label><div class="inbox"><span class="affix">$</span><input id="capex" type="number" inputmode="decimal" min="0" step="100" placeholder="5&ndash;10% of rent typical"></div></div>
+        <div class="field"><label for="mgmt">Management fee <button type="button" class="tip" data-tip="mgmt" aria-label="About management fee">i</button></label><div class="inbox"><input id="mgmt" type="number" inputmode="decimal" min="0" max="100" step="0.5" placeholder="8&ndash;10 typical"><span class="affix">% of EGI</span></div></div>
+        <div class="field"><label for="other">Utilities, leasing, admin / yr <button type="button" class="tip" data-tip="other" aria-label="About other expenses">i</button></label><div class="inbox"><span class="affix">$</span><input id="other" type="number" inputmode="decimal" min="0" step="100" placeholder="owner-paid costs"></div></div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Financing</legend>
+      <div class="grid">
+        <div class="field"><label for="down">Down payment * <button type="button" class="tip" data-tip="down" aria-label="About down payment">i</button></label><div class="inbox"><input id="down" type="number" inputmode="decimal" min="0" max="100" step="1" placeholder="e.g. 25" required><span class="affix">%</span></div></div>
+        <div class="field"><label for="rate">Interest rate * <button type="button" class="tip" data-tip="rate" aria-label="About interest rate">i</button></label><div class="inbox"><input id="rate" type="number" inputmode="decimal" min="0" max="30" step="0.125" placeholder="e.g. 6.75" required><span class="affix">%</span></div></div>
+        <div class="field"><label for="years">Amortization * <button type="button" class="tip" data-tip="years" aria-label="About amortization">i</button></label><div class="inbox"><input id="years" type="number" inputmode="numeric" min="1" max="40" step="1" placeholder="e.g. 30" required><span class="affix">years</span></div></div>
+        <div class="field"><label for="closing">Closing costs + initial repairs <button type="button" class="tip" data-tip="closing" aria-label="About closing costs">i</button></label><div class="inbox"><span class="affix">$</span><input id="closing" type="number" inputmode="decimal" min="0" step="500" placeholder="e.g. 15000"></div></div>
+      </div>
+    </fieldset>
+
+    <details class="adv">
+      <summary>Optional: buy box, reserves, tax &amp; flip screen</summary>
+      <div class="grid">
+        <div class="field"><label for="minCoc">My minimum cash-on-cash <button type="button" class="tip" data-tip="minCoc" aria-label="About minimum cash-on-cash">i</button></label><div class="inbox"><input id="minCoc" type="number" inputmode="decimal" min="0" step="0.5" placeholder="e.g. 8"><span class="affix">%</span></div><div class="hint">Your buy-box floor. Leave blank to skip.</div></div>
+        <div class="field"><label for="reservesHave">Cash reserves after closing <button type="button" class="tip" data-tip="reservesHave" aria-label="About reserves">i</button></label><div class="inbox"><span class="affix">$</span><input id="reservesHave" type="number" inputmode="decimal" min="0" step="500" placeholder="optional"></div></div>
+        <div class="field"><label for="apprec">Appreciation / yr <button type="button" class="tip" data-tip="apprec" aria-label="About appreciation">i</button></label><div class="inbox"><input id="apprec" type="number" inputmode="decimal" step="0.5" placeholder="e.g. 3"><span class="affix">%</span></div><div class="hint">Blank = 0%.</div></div>
+        <div class="field"><label for="land">Land share of price <button type="button" class="tip" data-tip="land" aria-label="About land share">i</button></label><div class="inbox"><input id="land" type="number" inputmode="decimal" min="0" max="100" step="1" placeholder="from assessor"><span class="affix">%</span></div><div class="hint">Needed for the tax snapshot.</div></div>
+        <div class="field"><label for="ptype">Property type <button type="button" class="tip" data-tip="ptype" aria-label="About property type">i</button></label><div class="inbox"><select id="ptype"><option value="res" selected>Residential (27.5 yrs)</option><option value="com">Commercial (39 yrs)</option></select></div></div>
+        <div class="field"><label for="arv">Flip / BRRRR: After-repair value <button type="button" class="tip" data-tip="arv" aria-label="About ARV">i</button></label><div class="inbox"><span class="affix">$</span><input id="arv" type="number" inputmode="decimal" min="0" step="1000" placeholder="optional"></div></div>
+        <div class="field"><label for="rehab">Flip / BRRRR: Repairs <button type="button" class="tip" data-tip="rehab" aria-label="About repairs">i</button></label><div class="inbox"><span class="affix">$</span><input id="rehab" type="number" inputmode="decimal" min="0" step="1000" placeholder="optional"></div></div>
+      </div>
+    </details>
+
+    <div class="actions">
+      <button type="button" class="primary" id="analyzeBtn">Analyze this deal &rarr;</button>
+    </div>
+    <div class="formmsg" id="formMsg" role="alert"></div>
+  </section>
+
+  <section id="results" hidden aria-live="polite">
+    <div class="card summary" id="summary"></div>
+    <div class="sharebar" id="shareBar">
+      <button type="button" class="primary" id="copyBtn">Copy deal results</button>
+      <button type="button" class="ghost" id="dlBtn">Download as .txt</button>
+      <span class="copymsg" id="copyMsg" role="status" aria-live="polite"></span>
+    </div>
+    <div class="steps" id="steps"></div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <div class="disclaimer"><b>Educational tool only, not financial, tax, legal, or investment advice.</b> "Industry standard" figures are typical rules of thumb and lender guidelines. They vary by market, property class, lender, and time, so verify them locally. "Your playbook" notes come from the Wealth Creators "Real Estate: The Owner's Playbook" masterclass. Rules of thumb are screens, not decisions. Have your CPA and attorney review anything before you act on it. &copy; Wealth Creators.</div>
+</footer>
+
+<div id="tipPop" role="tooltip" hidden></div>
+<script>
+(function(){
+"use strict";
+function money(n){ if(!isFinite(n)) return "n/a"; var s=Math.round(Math.abs(n)).toLocaleString("en-US"); return (n<0?"\u2212$":"$")+s; }
+function pct(n,d){ if(!isFinite(n)) return "n/a"; return (n*100).toFixed(d==null?2:d)+"%"; }
+function x(n){ return isFinite(n)? n.toFixed(2)+"x" : "n/a"; }
+
+/* ---------- core math (pure) ---------- */
+function payment(L, annualRate, years){
+  var n=years*12; if(L<=0||n<=0) return 0;
+  var r=annualRate/12; if(r===0) return L/n;
+  return L*r/(1-Math.pow(1+r,-n));
+}
+function yearOneSplit(L, annualRate, years){
+  var pmt=payment(L,annualRate,years), r=annualRate/12, bal=L, interest=0, principal=0;
+  for(var i=0;i<12 && bal>0.005;i++){ var it=bal*r; var pr=Math.min(pmt-it,bal); interest+=it; principal+=pr; bal-=pr; }
+  return {pmt:pmt, interest:interest, principal:principal};
+}
+function analyze(inp){
+  var o={}, price=inp.price, units=Math.max(1,inp.units);
+  o.gsi=units*inp.rent*12; o.monthlyRent=units*inp.rent;
+  o.vacancyLoss=o.gsi*inp.vacancyPct/100; o.egi=o.gsi-o.vacancyLoss;
+  o.mgmtFee=o.egi*inp.mgmtPct/100;
+  o.opex=inp.taxes+inp.insurance+inp.maint+inp.capex+o.mgmtFee+inp.other;
+  o.noi=o.egi-o.opex;
+  o.oer = o.egi>0 ? o.opex/o.egi : NaN;                              /* industry operating expense ratio */
+  o.fiftyRule = o.gsi>0 ? (o.vacancyLoss+o.opex)/o.gsi : NaN;        /* playbook 50% rule view */
+  o.capexPctRent = o.gsi>0 ? inp.capex/o.gsi : NaN;
+  o.maintPctRent = o.gsi>0 ? inp.maint/o.gsi : NaN;
+  o.capexPerUnitMo=inp.capex/units/12;
+  o.downPay=price*inp.downPct/100; o.loan=price-o.downPay; o.ltv=price>0?o.loan/price:NaN;
+  var y1=yearOneSplit(o.loan,inp.ratePct/100,inp.years);
+  o.monthlyPI=y1.pmt; o.debtService=y1.pmt*12; o.interestY1=y1.interest; o.paydownY1=y1.principal;
+  o.cashFlow=o.noi-o.debtService; o.cfPerDoorMo=o.cashFlow/units/12;
+  o.cashInvested=o.downPay+inp.closing;
+  o.capRate=price>0?o.noi/price:NaN;
+  o.coc=o.cashInvested>0?o.cashFlow/o.cashInvested:NaN;
+  o.dscr=o.debtService>0?o.noi/o.debtService:Infinity;
+  o.grm=o.gsi>0?price/o.gsi:NaN;
+  o.onePctTarget=price*0.01; o.onePctPass=o.monthlyRent>=o.onePctTarget; o.rentToPrice=price>0?o.monthlyRent/price:NaN;
+  o.cfPerDollar=o.gsi>0?o.cashFlow/o.gsi:NaN;
+  o.reserveTarget=o.monthlyPI*6;
+  o.reserveMonths = o.monthlyPI>0 ? inp.reservesHave/o.monthlyPI : Infinity;
+  o.appreciation=price*inp.apprecPct/100;
+  o.totalReturnDollars=o.cashFlow+o.paydownY1+o.appreciation;
+  o.totalReturn=o.cashInvested>0?o.totalReturnDollars/o.cashInvested:NaN;
+  o.deprLife=inp.ptype==="com"?39:27.5;
+  o.hasLand = inp.landSet;
+  o.buildingBasis=price*(1-inp.landPct/100); o.depreciation=o.buildingBasis/o.deprLife;
+  o.taxableIncome=o.noi-o.interestY1-o.depreciation;
+  o.valuePerNoiDollar=o.capRate>0?1/o.capRate:NaN;
+  o.drop10=price*0.10; o.drop10OfDown=o.downPay>0?o.drop10/o.downPay:NaN;
+  o.flip=(inp.arv>0)?{maxOffer:0.70*inp.arv-(inp.rehab||0)}:null;
+  return o;
+}
+
+/* ---------- grading: [status, industry note, playbook note|null] ---------- */
+function grade(inp,o){
+  var g={}, v=inp.vacancyPct;
+  g.vacancy = v<=0 ? ["fail","0% vacancy is unrealistic. The industry typically assumes 5\u201310%.","never zero."] :
+              v<5 ? ["caution","Under the typical 5\u201310% industry assumption. That's optimistic.",null] :
+              v<=10 ? ["pass","Inside the typical 5\u201310% range.",null] :
+              ["caution","Above the typical 5\u201310%. That can be right for a softer market, but find out why.",null];
+  var m=inp.mgmtPct;
+  g.mgmt = m<=0 ? ["fail","No management fee. Professional management typically runs 8\u201310% of collected rent.","charge it even if you self-manage."] :
+           m<8 ? ["caution","Under the typical 8\u201310% of collected rent.","8% is rarely 8% once leasing and renewal fees are added."] :
+           ["pass", m<=10 ? "Inside the typical 8\u201310% range." : "Above 8\u201310%. That's conservative.", null];
+  var c=o.capexPctRent;
+  g.capex = !(inp.capex>0) ? ["fail","No CapEx reserve. The typical reserve is 5\u201310% of gross rent.","$250\u2013$400 per unit per month."] :
+            c<0.05 ? ["caution",pct(c,1)+" of rent is under the typical 5\u201310%.","$250\u2013$400/unit/mo (you have "+money(o.capexPerUnitMo)+")."] :
+            ["pass",pct(c,1)+" of rent meets the typical 5\u201310%.", o.capexPerUnitMo<250 ? "$250\u2013$400/unit/mo, which is stricter (you have "+money(o.capexPerUnitMo)+")." : null];
+  var mt=o.maintPctRent;
+  g.maint = !(inp.maint>0) ? ["caution","No maintenance budget. The typical budget is 5\u201310% of gross rent.",null] :
+            mt<0.05 ? ["caution",pct(mt,1)+" of rent is under the typical 5\u201310%.",null] :
+            ["pass",pct(mt,1)+" of rent is in line with the typical 5\u201310%.",null];
+  var e=o.oer;
+  g.expRatio = !isFinite(e) ? ["info","Enter rent.",null] :
+               e<0.35 ? ["caution","Under the typical 35\u201350% operating expense ratio. Check for missing costs.","50% rule: vacancy + expenses \u2248 50% of gross rent (yours: "+pct(o.fiftyRule,1)+")."] :
+               e<=0.50 ? ["pass","Inside the typical 35\u201350% range.","50% rule (yours: "+pct(o.fiftyRule,1)+" of gross rent)."] :
+               ["caution","Above the typical 35\u201350%. Expenses are taking a large share of income.","50% rule (yours: "+pct(o.fiftyRule,1)+" of gross rent)."];
+  var cr=o.capRate;
+  g.capRate = !isFinite(cr) ? ["info","",null] :
+              cr<0.045 ? ["caution","Under the typical ~4.5\u20139% range (2026 multifamily, Class A\u2013C). Priced for appreciation, not income.","no cap-rate benchmark; use it to compare buildings."] :
+              cr<=0.09 ? ["pass","Inside the typical ~4.5\u20139% range. Compare with local comps.","no cap-rate benchmark; use it to compare buildings."] :
+              ["caution","Above ~9%. High cap rates usually price in higher risk, so verify the income and the area.","no cap-rate benchmark."];
+  g.ltv = o.ltv<=0 ? ["info","All cash, no loan.",null] :
+          o.ltv<=0.80 ? ["pass","At or under the typical 70\u201380% maximum LTV for investment property.",null] :
+          ["caution","Over the typical 70\u201380% maximum for investment property (owner-occupied FHA/VA differ).",null];
+  g.dscr = o.debtService<=0 ? ["info","No debt service.",null] :
+           o.dscr>=1.25 ? ["pass","Meets the common 1.25x+ lender standard.",null] :
+           o.dscr>=1.20 ? ["caution","Inside the 1.20\u20131.25x lender minimum band. Some lenders will decline.","1.25x minimum in your buy box."] :
+           ["fail","Under 1.20x, below most lenders' minimums.",null];
+  var pd=o.cfPerDoorMo;
+  g.cashFlow = o.cashFlow<=0 ? ["fail","Negative cash flow. The property can't pay its own note.","if it can't pay the note without you, it isn't an investment."] :
+               pd<100 ? ["caution",money(pd)+"/door/mo. Positive, but under the $100\u2013$200 per door many investors target.",null] :
+               ["pass",money(pd)+"/door/mo meets the common $100\u2013$200/door target.",null];
+  var cc=o.coc;
+  g.coc = !isFinite(cc) ? ["info","",null] :
+          cc<0 ? ["fail","Negative cash-on-cash. The typical target is 8\u201312%.","its 3.84% example is called \u201cthin.\u201d"] :
+          cc<0.08 ? ["caution","Under the typical 8\u201312% target.","its 3.84% example is called \u201cthin\u201d; set your own floor."] :
+          ["pass", cc<=0.12 ? "Inside the typical 8\u201312% target." : "Above the typical 8\u201312% target.", null];
+  if(inp.minCoc>0) g.buybox = cc*100>=inp.minCoc ? ["pass","Meets your "+inp.minCoc+"% buy-box floor.",null] : ["fail","Under your "+inp.minCoc+"% buy-box floor.","if a deal doesn't fit every line of your buy box, it isn't your deal."];
+  g.onePct = o.onePctPass ? ["pass","Passes the 1% rule screen.",null] : ["caution","Fails the 1% rule screen. It's common in high-priced markets and is a screen, not a verdict.",null];
+  if(inp.reservesHave>0){
+    var rm=o.reserveMonths;
+    g.reserves = rm>=6 ? ["pass","Covers "+rm.toFixed(1)+" months of payments, inside the typical 2\u20136 month lender requirement.",null] :
+                 rm>=2 ? ["caution",rm.toFixed(1)+" months: meets the typical 2-month lender floor but is short of 6.","6 months of debt service per property."] :
+                 ["fail",rm.toFixed(1)+" months: under the typical 2\u20136 month lender requirement.","6 months of debt service per property."];
+  } else g.reserves=["info","Target: "+money(o.reserveTarget)+" (6 months). Enter your reserves under Optional.",null];
+  if(o.flip) g.flip = inp.price<=o.flip.maxOffer ? ["pass","At or under the 70% rule max offer.",null] : ["caution","Over the 70% rule max offer of "+money(o.flip.maxOffer)+".",null];
+  g.grm=["info","No universal standard. Lower is cheaper relative to rent; compare with local comps.",null];
+  g.cfPerDollar=["info","No single industry standard.","about 13\u00a2 (10\u201315\u00a2) on a healthy, honestly reserved deal."];
+  return g;
+}
+var SCORED=["dscr","cashFlow","coc","buybox","capRate","expRatio","vacancy","capex","maint","mgmt","ltv","onePct","reserves","flip"];
+function verdict(inp,o,g){
+  var fails=[],cautions=[],passes=[];
+  SCORED.forEach(function(k){ if(!g[k]) return; var s=g[k][0]; if(s==="fail") fails.push(k); else if(s==="caution") cautions.push(k); else if(s==="pass") passes.push(k); });
+  return {overall:fails.length?"fail":cautions.length?"caution":"pass",fails:fails,cautions:cautions,passes:passes};
+}
+
+/* ---------- tooltip content: ind = industry standard (primary), pb = your playbook (secondary) ---------- */
+var TIPS={
+ price:{t:"Purchase price",w:"What you pay for the property. Cap rate, GRM, the 1% rule, and the loan all build from it.",f:"Input",ind:"No benchmark on its own. Income property is valued on NOI \u00f7 market cap rate.",pb:"commercial is priced on income, not comps.",s:"slides 10, 23"},
+ units:{t:"Number of units",w:"Rentable doors. Used for gross rent, per-door cash flow, and CapEx per unit.",f:"Input",ind:"1\u20134 units can use residential financing; 5+ units use commercial loans.",pb:"2\u20134 units can use owner-occupied FHA/VA if you live in one.",s:"slides 9, 16"},
+ rent:{t:"Monthly rent per unit",w:"Market rent for one unit. Pull rental comps; don't take the seller's number.",f:"Input",ind:"1% rule screen: monthly rent \u2265 1% of the purchase price.",pb:"rebuild from your own numbers, never the seller's pro forma.",s:"slides 25, 26"},
+ gsi:{t:"Gross scheduled income (GSI)",w:"Every unit rented every month at market rent. It's the ceiling, not the expectation.",f:"Units \u00d7 monthly rent \u00d7 12",c:function(i,o){return i.units+" \u00d7 "+money(i.rent)+" \u00d7 12 = "+money(o.gsi);},ind:"No benchmark. It's the top line every other metric starts from.",pb:"calls it \u201cthe fantasy number.\u201d",s:"slide 22"},
+ vacancy:{t:"Vacancy & credit loss",w:"Empty months and unpaid rent. One turnover can cost a quarter or more of a unit's annual rent.",f:"GSI \u00d7 vacancy %",c:function(i,o){return money(o.gsi)+" \u00d7 "+i.vacancyPct+"% = "+money(o.vacancyLoss);},ind:"Typically 5\u201310% of gross rent (about 5% in tight markets, higher in soft ones). Varies by market.",pb:"5\u201310%, never zero.",s:"slides 22, 33"},
+ egi:{t:"Effective gross income (EGI)",w:"What actually reaches your account after vacancy.",f:"GSI \u2212 vacancy & credit loss",c:function(i,o){return money(o.gsi)+" \u2212 "+money(o.vacancyLoss)+" = "+money(o.egi);},ind:"No benchmark. It's the base for the operating expense ratio.",pb:null,s:"slide 22"},
+ taxes:{t:"Property taxes",w:"Use the actual tax bill, and check whether the assessment resets to your purchase price after the sale.",f:"Input (annual)",ind:"No single standard. Rates vary widely by state and county.",pb:"get written confirmation of the post-sale reassessment.",s:"slides 21, 27"},
+ insurance:{t:"Insurance",w:"Premiums have risen sharply in some markets. Get a real quote before you make an offer.",f:"Input (annual)",ind:"No single standard. Cost varies with location, hazard exposure, and building age.",pb:"get a bound quote before you release contingencies.",s:"slides 21, 27"},
+ maint:{t:"Maintenance & repairs",w:"Ordinary upkeep: plumbing, appliance repairs, service calls. Separate from the CapEx reserve.",f:"Maintenance \u00f7 GSI",c:function(i,o){return money(i.maint)+" \u00f7 "+money(o.gsi)+" = "+pct(o.maintPctRent,1)+" of rent";},ind:"Typically 5\u201310% of gross rent; older buildings run higher.",pb:null,s:"slide 24"},
+ capex:{t:"CapEx reserve",w:"Money set aside for big replacements: roof, HVAC, water heaters, flooring. Keep it in a separate account.",f:"CapEx \u00f7 GSI (and \u00f7 units \u00f7 12 per unit per month)",c:function(i,o){return money(i.capex)+" \u00f7 "+money(o.gsi)+" = "+pct(o.capexPctRent,1)+" of rent ("+money(o.capexPerUnitMo)+"/unit/mo)";},ind:"Typically 5\u201310% of gross rent; more for older systems.",pb:"$250\u2013$400 per unit per month, set aside before you call it profit.",s:"slide 29"},
+ mgmt:{t:"Management fee",w:"Charge the property a fee even if you manage it yourself. Otherwise your own labor is hidden inside the return.",f:"EGI \u00d7 management %",c:function(i,o){return money(o.egi)+" \u00d7 "+i.mgmtPct+"% = "+money(o.mgmtFee);},ind:"Typically 8\u201310% of collected rent for long-term residential, plus leasing and renewal fees.",pb:"8\u201310% too, but the full fee stack (50\u2013100% of a month's rent to lease, $150\u2013350 renewals, 10\u201320% maintenance markup) is bigger.",s:"slides 22, 31"},
+ other:{t:"Utilities, leasing, admin",w:"Owner-paid utilities, turnover, leasing, software, and accounting.",f:"Input (annual)",ind:"No single standard. It depends on which utilities the owner pays.",pb:null,s:"slide 22"},
+ opex:{t:"Total operating expenses",w:"Every cost to run the building, not counting the mortgage.",f:"Taxes + insurance + maintenance + CapEx + management + other",c:function(i,o){return money(o.opex);},ind:"See the operating expense ratio.",pb:null,s:"slide 22"},
+ expRatio:{t:"Operating expense ratio (OER)",w:"The share of collected income eaten by operating costs. Too low usually means costs are missing.",f:"Operating expenses \u00f7 EGI",c:function(i,o){return money(o.opex)+" \u00f7 "+money(o.egi)+" = "+pct(o.oer,1);},ind:"Typically 35\u201350% for residential rentals; newer buildings run lower, older or utility-included buildings higher.",pb:"50% rule: vacancy + operating expenses \u2248 50% of gross rent.",s:"slides 25, 26"},
+ noi:{t:"Net operating income (NOI)",w:"The number the property is valued on. NOI never includes your mortgage.",f:"EGI \u2212 operating expenses",c:function(i,o){return money(o.egi)+" \u2212 "+money(o.opex)+" = "+money(o.noi);},ind:"No fixed benchmark. Value \u2248 NOI \u00f7 market cap rate.",pb:"raising NOI is how you force appreciation.",s:"slides 10, 22"},
+ down:{t:"Down payment",w:"Your equity in the deal.",f:"Price \u00d7 down %",ind:"Typically 20\u201325% down on conventional investment loans (70\u201380% LTV).",pb:"FHA 3.5% / VA 0% owner-occupied on 2\u20134 units if you live in one.",s:"slides 12, 16, 19"},
+ rate:{t:"Interest rate",w:"A fixed rate protects the whole hold. An adjustable rate is a bet on future rates.",f:"Input (annual %)",ind:"No fixed benchmark. Investment and DSCR loans usually price above owner-occupied rates. Shop at least three lenders.",pb:"people lose buildings on balloons, guarantees, and prepay terms, not on 0.25% of rate.",s:"slides 18, 19"},
+ years:{t:"Amortization",w:"The years the payment is spread over. That can differ from the loan term, which leaves a balloon payment.",f:"Input (years)",ind:"Typically 30 years for residential and 20\u201330 for commercial, often on a 5\u201310 year term.",pb:"underwrite the refinance before you sign.",s:"slides 16, 18"},
+ closing:{t:"Closing costs + initial repairs",w:"Cash in beyond the down payment. Added to the down payment to get total cash invested.",f:"Input",ind:"Closing costs commonly run about 2\u20135% of the price, plus any upfront repairs.",pb:"example: $105,000 down + $15,000 = $120,000 all-in.",s:"slide 24"},
+ loan:{t:"Loan amount & LTV",w:"How much the bank funds, compared with the price.",f:"Loan = price \u2212 down payment; LTV = loan \u00f7 price",c:function(i,o){return money(i.price)+" \u2212 "+money(o.downPay)+" = "+money(o.loan)+"; LTV "+pct(o.ltv,1);},ind:"Typically 70\u201380% maximum LTV on investment property.",pb:null,s:"slide 19"},
+ ds:{t:"Annual debt service",w:"Principal and interest on every loan against the property.",f:"Monthly P&I \u00d7 12; P&I = L\u00b7r \u00f7 (1 \u2212 (1+r)^\u2212n), r = rate\u00f712, n = years\u00d712",c:function(i,o){return money(o.monthlyPI)+"/mo \u00d7 12 = "+money(o.debtService);},ind:"See DSCR.",pb:null,s:"slide 22"},
+ cash:{t:"Total cash invested",w:"Every dollar you put in. The denominator for cash-on-cash and total return.",f:"Down payment + closing costs + initial repairs",c:function(i,o){return money(o.downPay)+" + "+money(i.closing)+" = "+money(o.cashInvested);},ind:"No benchmark.",pb:null,s:"slide 24"},
+ dscr:{t:"Debt service coverage ratio (DSCR)",w:"How many times NOI covers the mortgage. It's the lender's safety margin, a survival metric rather than a profit metric.",f:"NOI \u00f7 annual debt service",c:function(i,o){return money(o.noi)+" \u00f7 "+money(o.debtService)+" = "+x(o.dscr);},ind:"Lenders commonly require 1.20\u20131.25x minimum; 1.25x+ is the standard target. Below 1.0x the property can't cover its payment.",pb:"1.25x+ on your own numbers is your buy-box minimum.",s:"slides 16, 19, 23, 48"},
+ cashFlow:{t:"Cash flow before tax",w:"NOI minus the mortgage. NOI sets value; cash flow is what pays you.",f:"NOI \u2212 annual debt service",c:function(i,o){return money(o.noi)+" \u2212 "+money(o.debtService)+" = "+money(o.cashFlow)+" ("+money(o.cfPerDoorMo)+"/door/mo)";},ind:"Must be positive. Many investors target about $100\u2013$200 per door per month.",pb:"if it can't pay the note without you, it isn't an investment.",s:"slides 5, 22"},
+ reserves:{t:"Reserves",w:"Cash held back so one bad month doesn't force a sale. Keep it outside your personal emergency fund.",f:"Target = monthly P&I \u00d7 6; months covered = reserves \u00f7 monthly P&I",c:function(i,o){return money(o.monthlyPI)+" \u00d7 6 = "+money(o.reserveTarget);},ind:"Lenders typically require 2\u20136 months of payments in reserve for investment property.",pb:"six months of debt service per property.",s:"slides 5, 19, 46"},
+ capRate:{t:"Cap rate",w:"Compares properties as if all were bought with cash. It ignores your financing and any value-add plan.",f:"NOI \u00f7 purchase price",c:function(i,o){return money(o.noi)+" \u00f7 "+money(i.price)+" = "+pct(o.capRate);},ind:"Varies by market and class. 2026 multifamily typically runs about 4.5\u20135.5% (Class A), 5.5\u20137% (Class B), 7\u20139%+ (Class C). Higher means more income per dollar, and usually more risk.",pb:"no benchmark; it uses a 7% cap market as an illustration.",s:"slides 10, 23"},
+ coc:{t:"Cash-on-cash return",w:"What your actual dollars earn in year one. It leaves out loan paydown, appreciation, and tax benefits.",f:"Annual cash flow \u00f7 total cash invested",c:function(i,o){return money(o.cashFlow)+" \u00f7 "+money(o.cashInvested)+" = "+pct(o.coc);},ind:"8\u201312% is a common target for leveraged rentals. Varies by market and strategy.",pb:"set your own floor in your buy box; its 3.84% example is called \u201cthin.\u201d",s:"slides 23, 24, 48"},
+ grm:{t:"Gross rent multiplier (GRM)",w:"A fast screen for comparing similar properties. It ignores all expenses.",f:"Price \u00f7 gross annual rent",c:function(i,o){return money(i.price)+" \u00f7 "+money(o.gsi)+" = "+o.grm.toFixed(2);},ind:"No universal standard. Lower is cheaper relative to rent; compare with similar local properties.",pb:"useful for a first pass, useless for a decision.",s:"slide 23"},
+ onePct:{t:"The 1% rule",w:"A 30-second cash-flow screen. Use it to rule deals out, never to say yes.",f:"Monthly rent \u2265 1% of purchase price",c:function(i,o){return money(o.monthlyRent)+" vs "+money(o.onePctTarget)+" ("+pct(o.rentToPrice)+" of price)";},ind:"Common rule of thumb: monthly rent \u2265 1% of price. Many high-priced markets rarely pass.",pb:null,s:"slide 26"},
+ cfPerDollar:{t:"Cash flow per rent dollar",w:"How many cents of each gross rent dollar you keep.",f:"Cash flow \u00f7 GSI",c:function(i,o){return money(o.cashFlow)+" \u00f7 "+money(o.gsi)+" = "+(o.cfPerDollar*100).toFixed(1)+"\u00a2";},ind:"No single industry standard.",pb:"about 13\u00a2 (10\u201315\u00a2) on a healthy, honestly reserved leveraged property.",s:"slide 30"},
+ paydown:{t:"Year-1 loan paydown",w:"Your tenants pay down your debt. Every payment moves equity from the bank to you.",f:"Year-1 payments \u2212 year-1 interest",c:function(i,o){return money(o.debtService)+" \u2212 "+money(o.interestY1)+" = "+money(o.paydownY1);},ind:"No benchmark. It's small in early years and grows over the life of the loan.",pb:null,s:"slide 4"},
+ apprec:{t:"Appreciation",w:"Value growth on the whole asset, which is why leverage magnifies it.",f:"Price \u00d7 appreciation %",c:function(i,o){return money(i.price)+" \u00d7 "+i.apprecPct+"% = "+money(o.appreciation);},ind:"Long-run U.S. home-price growth is often cited at about 3\u20134% a year. It varies a lot by market and period, and it isn't guaranteed.",pb:"uses 3%/yr as an illustration.",s:"slides 4, 5"},
+ totalReturn:{t:"Total return, year 1",w:"Cash flow + loan paydown + appreciation. Tax benefits are left out.",f:"(Cash flow + paydown + appreciation) \u00f7 cash invested",c:function(i,o){return "("+money(o.cashFlow)+" + "+money(o.paydownY1)+" + "+money(o.appreciation)+") \u00f7 "+money(o.cashInvested)+" = "+pct(o.totalReturn,1);},ind:"No single standard. It depends heavily on the appreciation assumption.",pb:"a 4% cash-on-cash deal can be a 15\u201318% total-return deal. Judge the stack.",s:"slides 4, 24"},
+ depreciation:{t:"Depreciation",w:"A deduction you never write a check for. Land never depreciates. Cost segregation can speed it up; ask your CPA.",f:"Building basis (price \u00d7 (1 \u2212 land %)) \u00f7 27.5 yrs residential / 39 yrs commercial",c:function(i,o){return money(o.buildingBasis)+" \u00f7 "+o.deprLife+" = "+money(o.depreciation);},ind:"IRS rule: 27.5 years for residential rental, 39 for commercial; land isn't depreciable.",pb:null,s:"slide 35"},
+ taxable:{t:"Taxable income (the phantom loss)",w:"Positive cash can still show a tax loss. Whether you can use that loss depends on the passive-loss rules, which is a question for your CPA.",f:"NOI \u2212 year-1 mortgage interest \u2212 depreciation",c:function(i,o){return money(o.noi)+" \u2212 "+money(o.interestY1)+" \u2212 "+money(o.depreciation)+" = "+money(o.taxableIncome);},ind:"No benchmark. Depreciation is recaptured at sale (taxed at up to 25%).",pb:"every dollar of depreciation is gain waiting at the exit unless you exchange or hold to step-up.",s:"slides 35, 37, 38"},
+ valueNoi:{t:"Value of added NOI",w:"Income property is priced on NOI, so raising rents or cutting costs creates value.",f:"Value = NOI \u00f7 cap rate, so $1 of NOI = 1 \u00f7 cap rate",c:function(i,o){return "1 \u00f7 "+pct(o.capRate)+" = $"+o.valuePerNoiDollar.toFixed(2)+" per $1 of NOI";},ind:"Standard income approach to valuation.",pb:"+$10,000 NOI in a 7% cap market \u2248 $143,000 of value.",s:"slide 10"},
+ drop10:{t:"Leverage stress test",w:"Leverage cuts both ways. A drop in value hits your equity first.",f:"10% \u00d7 price \u00f7 down payment",c:function(i,o){return money(o.drop10)+" \u00f7 "+money(o.downPay)+" = "+pct(o.drop10OfDown,0)+" of your down payment";},ind:"Standard leverage math. No benchmark.",pb:"a 10% drop on $420k is a 40% hit to a $105k down payment.",s:"slide 5"},
+ minCoc:{t:"Your minimum cash-on-cash",w:"Your own floor, written down before you shop.",f:"Input",ind:"8\u201312% is a common target, but set yours for your goals.",pb:"\u201cyour floor, written down in advance\u201d in your buy box.",s:"slide 48"},
+ reservesHave:{t:"Cash reserves after closing",w:"Cash left in the bank after closing, outside your personal emergency fund.",f:"Months covered = reserves \u00f7 monthly P&I",ind:"Lenders typically require 2\u20136 months of payments for investment property.",pb:"six months of debt service per property.",s:"slides 19, 46"},
+ land:{t:"Land share of price",w:"Land isn't depreciable, only the building. The county assessor's land vs. improvement split is a common starting point.",f:"Input",ind:"No single standard. It varies widely by location (often 15\u201330%, much higher in expensive land markets).",pb:"its example treats 20% as land ($336k building on $420k).",s:"slide 35"},
+ ptype:{t:"Property type",w:"Sets the depreciation schedule.",f:"Residential 27.5 yrs; commercial 39 yrs",ind:"IRS recovery periods.",pb:null,s:"slide 35"},
+ arv:{t:"After-repair value (ARV)",w:"What the property will be worth after the rehab, based on renovated comps.",f:"Input",ind:"Used in the 70% rule.",pb:null,s:"slide 26"},
+ rehab:{t:"Repairs (rehab budget)",w:"Get independent contractor bids for every repair you priced.",f:"Input",ind:"Common practice is to add a 10\u201320% contingency to bids.",pb:"set a maximum rehab dollar cap in your buy box.",s:"slides 27, 48"},
+ flip:{t:"70% rule (flips/BRRRR)",w:"Protects the margin against holding costs, financing, and surprises behind the walls. It's a screen, not a decision.",f:"Max offer = 70% \u00d7 ARV \u2212 repairs",c:function(i,o){return "0.70 \u00d7 "+money(i.arv)+" \u2212 "+money(i.rehab||0)+" = "+money(o.flip.maxOffer);},ind:"Standard flipper rule of thumb: max offer = 70% of ARV \u2212 repairs.",pb:null,s:"slide 26"}
+};
+
+if(typeof document==="undefined"){ if(typeof module!=="undefined") module.exports={analyze:analyze,grade:grade,verdict:verdict,TIPS:TIPS}; return; }
+
+/* ---------- DOM ---------- */
+var $=function(id){return document.getElementById(id);};
+var FIELDS=["price","units","rent","vacancy","taxes","insurance","maint","capex","mgmt","other","down","rate","years","closing","minCoc","reservesHave","apprec","land","arv","rehab"];
+var REQUIRED={price:"Purchase price",units:"Number of units",rent:"Monthly rent per unit",down:"Down payment",rate:"Interest rate",years:"Amortization"};
+var EXPENSES={vacancy:"vacancy",taxes:"taxes",insurance:"insurance",maint:"maintenance",capex:"CapEx",mgmt:"management",other:"utilities/admin",closing:"closing costs"};
+var EXAMPLE={price:420000,units:4,rent:1250,vacancy:6,taxes:5600,insurance:3200,maint:4500,capex:4500,mgmt:9,other:4400,down:25,rate:6.75,years:30,closing:15000,minCoc:"",reservesHave:"",apprec:3,land:20,ptype:"res",arv:"",rehab:""};
+function raw(id){ return $(id).value.trim(); }
+function num(id){ var v=parseFloat(raw(id)); return isFinite(v)?v:0; }
+function readInputs(){
+  return {price:num("price"),units:Math.max(1,Math.round(num("units"))),rent:num("rent"),vacancyPct:num("vacancy"),taxes:num("taxes"),insurance:num("insurance"),maint:num("maint"),capex:num("capex"),mgmtPct:num("mgmt"),other:num("other"),downPct:Math.min(100,Math.max(0,num("down"))),ratePct:num("rate"),years:Math.max(1,num("years")),closing:num("closing"),minCoc:num("minCoc"),reservesHave:num("reservesHave"),apprecPct:num("apprec"),landPct:Math.min(100,Math.max(0,num("land"))),landSet:raw("land")!=="",ptype:$("ptype").value,arv:num("arv"),rehab:num("rehab")};
+}
+function validate(){
+  var missing=[];
+  Object.keys(REQUIRED).forEach(function(k){
+    var bad = raw(k)==="" || !isFinite(parseFloat(raw(k))) || (k!=="down"&&k!=="rate"&&parseFloat(raw(k))<=0);
+    $(k).closest(".field").classList.toggle("missing",bad); if(bad) missing.push(REQUIRED[k]);
+  });
+  var msg=$("formMsg");
+  if(missing.length){ msg.className="formmsg err"; msg.textContent="Please fill in: "+missing.join(", ")+"."; return false; }
+  msg.className="formmsg"; msg.textContent=""; return true;
+}
+var state={inp:null,o:null,g:null};
+var LABEL={pass:"PASS",caution:"CAUTION",fail:"FAIL",info:"INFO"};
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+function tipBtn(k,label){return '<button type="button" class="tip" data-tip="'+k+'" aria-label="How '+esc(label)+' is calculated">i</button>';}
+function noteHtml(st){
+  if(!st) return "";
+  var t = st[1] ? esc(st[1]) : "";
+  if(st[2]) t += '<span class="pbn">Your playbook: '+esc(st[2])+'</span>';
+  return t ? '<div class="note">'+t+'</div>' : "";
+}
+function row(k,label,value,status,cls){
+  var p = status ? '<span class="pill '+status[0]+'">'+LABEL[status[0]]+'</span>' : '<span class="pill none"></span>';
+  return '<div class="r '+(cls||'')+'" data-row="'+k+'"><div class="name">'+esc(label)+' '+tipBtn(k,label)+'</div><div class="num">'+value+'</div>'+p+noteHtml(status)+'</div>';
+}
+function step(n,title,sub,explain,rowsHtml){
+  return '<article class="card step" aria-expanded="true" data-step="'+n+'"><button type="button" class="step-head" aria-expanded="true"><span class="step-num">'+n+'</span><span class="step-title"><b>'+title+'</b><small>'+sub+'</small></span><span class="chev" aria-hidden="true">&#9662;</span></button><div class="step-body"><div class="explain">'+explain+'</div><div class="rows">'+rowsHtml+'</div></div></article>';
+}
+var NAMES={dscr:"DSCR",cashFlow:"Cash flow",coc:"Cash-on-cash",buybox:"Your buy box",capRate:"Cap rate",expRatio:"Operating expense ratio",vacancy:"Vacancy",capex:"CapEx reserve",maint:"Maintenance",mgmt:"Management fee",ltv:"LTV",onePct:"1% rule",reserves:"Reserves",flip:"70% rule"};
+var ICON={pass:"\u2713",caution:"!",fail:"\u2715"};
+function kpi(k,label,val){return '<div class="kpi"><div class="lbl">'+esc(label)+' '+tipBtn(k,label)+'</div><div class="val">'+val+'</div></div>';}
+
+function render(){
+  var inp=readInputs(), o=analyze(inp), g=grade(inp,o), v=verdict(inp,o,g);
+  state={inp:inp,o:o,g:g};
+  var blanks=Object.keys(EXPENSES).filter(function(k){return raw(k)==="";}).map(function(k){return EXPENSES[k];});
+  var head = v.overall==="pass" ? ["It works on paper. Now verify it.","Every scored check meets typical industry standards. Next: inspection, T-12, rent roll, estoppels, a bound insurance quote, and the tax reassessment."] :
+             v.overall==="caution" ? ["Proceed with caution.","No hard fails, but "+v.cautions.length+" item"+(v.cautions.length>1?"s":"")+" fall outside typical industry ranges. Look closer before you trust this deal."] :
+             ["Doesn't pass yet.",v.fails.length+" check"+(v.fails.length>1?"s":"")+" fail"+(v.fails.length>1?"":"s")+" against industry standards. If it only works on hope, walk away. There's always another building."];
+  $("summary").className="card summary "+v.overall;
+  $("summary").innerHTML='<div class="badge-big '+v.overall+'" aria-hidden="true">'+ICON[v.overall]+'</div><div><h3>'+head[0]+'</h3><p>'+head[1]+'</p></div>'+
+    '<div class="kpis">'+kpi("capRate","Cap rate",pct(o.capRate))+kpi("coc","Cash-on-cash",pct(o.coc))+kpi("dscr","DSCR",x(o.dscr))+kpi("grm","GRM",isFinite(o.grm)?o.grm.toFixed(2):"n/a")+'</div>'+
+    (blanks.length?'<div class="notice">Left blank, so counted as 0: '+esc(blanks.join(", "))+'. Results are only as honest as the inputs.</div>':'');
+
+  var s1=row("gsi","Gross scheduled income",money(o.gsi))+
+         row("vacancy","Less vacancy ("+inp.vacancyPct+"%)","("+money(o.vacancyLoss)+")",g.vacancy,"neg")+
+         row("egi","Effective gross income",money(o.egi),null,"total")+
+         row("onePct","1% rule screen",money(o.monthlyRent)+"/mo vs "+money(o.onePctTarget),g.onePct);
+  var s2=row("taxes","Property taxes","("+money(inp.taxes)+")",null,"neg")+
+         row("insurance","Insurance","("+money(inp.insurance)+")",null,"neg")+
+         row("maint","Maintenance & repairs","("+money(inp.maint)+")",g.maint,"neg")+
+         row("capex","CapEx reserve","("+money(inp.capex)+")",g.capex,"neg")+
+         row("mgmt","Management ("+inp.mgmtPct+"% of EGI)","("+money(o.mgmtFee)+")",g.mgmt,"neg")+
+         row("other","Utilities, leasing, admin","("+money(inp.other)+")",null,"neg")+
+         row("opex","Total operating expenses","("+money(o.opex)+")")+
+         row("expRatio","Operating expense ratio (opex \u00f7 EGI)",pct(o.oer,1),g.expRatio)+
+         row("noi","Net operating income (NOI)",money(o.noi),null,"total");
+  var s3=row("cash","Cash invested (down + closing/repairs)",money(o.cashInvested))+
+         row("loan","Loan amount (LTV "+pct(o.ltv,0)+")",money(o.loan),g.ltv)+
+         row("ds","Annual debt service ("+money(o.monthlyPI)+"/mo)","("+money(o.debtService)+")",null,"neg")+
+         row("dscr","Debt service coverage (DSCR)",x(o.dscr),g.dscr)+
+         row("reserves","Reserve target (6 mo. of payments)",money(o.reserveTarget),g.reserves)+
+         row("cashFlow","Cash flow before tax",money(o.cashFlow)+' <small style="color:var(--muted);font-weight:600">('+money(o.cashFlow/12)+'/mo)</small>',g.cashFlow,"total");
+  var s4=row("capRate","Cap rate",pct(o.capRate),g.capRate)+
+         row("coc","Cash-on-cash return",pct(o.coc),g.coc)+
+         (g.buybox?row("minCoc","Your buy-box floor ("+inp.minCoc+"%)",pct(o.coc),g.buybox):"")+
+         row("grm","Gross rent multiplier",isFinite(o.grm)?o.grm.toFixed(2):"n/a",g.grm)+
+         row("cfPerDollar","Cash flow per rent dollar",isFinite(o.cfPerDollar)?(o.cfPerDollar*100).toFixed(1)+"\u00a2":"n/a",g.cfPerDollar)+
+         row("paydown","Year-1 loan paydown",money(o.paydownY1))+
+         row("apprec","Appreciation ("+inp.apprecPct+"%)",money(o.appreciation))+
+         row("totalReturn","Total return, year 1",pct(o.totalReturn,1)+' <small style="color:var(--muted);font-weight:600">('+money(o.totalReturnDollars)+')</small>',null,"total")+
+         (o.hasLand ? row("depreciation","Depreciation ("+o.deprLife+" yrs)",money(o.depreciation))+row("taxable","Taxable income after interest & depreciation",money(o.taxableIncome))
+                    : row("depreciation","Depreciation & tax snapshot","Enter land share",["info","Add the land share under Optional to see depreciation and the phantom loss.",null]))+
+         row("valueNoi","Value of each $1,000 of added NOI",isFinite(o.valuePerNoiDollar)?money(o.valuePerNoiDollar*1000):"n/a")+
+         row("drop10","If value drops 10%",money(o.drop10)+" = "+pct(o.drop10OfDown,0)+" of down");
+  if(o.flip) s4+=row("flip","70% rule max offer",money(o.flip.maxOffer),g.flip);
+
+  var li=SCORED.filter(function(k){return g[k];}).map(function(k){
+    var s=g[k]; return '<li><span class="pill '+s[0]+'">'+LABEL[s[0]]+'</span><span><b>'+NAMES[k]+':</b> '+esc(s[1])+(s[2]?' <span style="color:#7a6a3a">Your playbook: '+esc(s[2])+'</span>':'')+'</span></li>';
+  }).join("");
+  var levers = v.overall==="pass" ? "Next step: underwrite from your own numbers, fund reserves before closing, and confirm the deal fits every line of your written buy box." :
+    "Common fixes for a thin deal: a <b>lower price</b>, <b>more money down</b>, or <b>higher rents</b>. Cheap money on a bad deal is still a bad deal.";
+  var s5='<ul class="verdict-list">'+li+'</ul><div class="levers">'+levers+'<br><small>Run all four core metrics (cap rate, cash-on-cash, DSCR, GRM). Be suspicious of any deal that works on only one of them.</small></div>';
+
+  $("steps").innerHTML=
+    step(1,"Income","What the building can collect","Start with every unit rented at market rent (<b>"+money(o.gsi)+"</b>/yr), then subtract vacancy. It's never zero. What actually reaches your account is <b>"+money(o.egi)+"</b>.",s1)+
+    step(2,"Expenses & NOI","What it costs to run","Taxes, insurance, maintenance, CapEx, management, and admin total <b>"+money(o.opex)+"</b>. That leaves NOI of <b>"+money(o.noi)+"</b>. NOI is what the property is valued on, and it never includes your mortgage.",s2)+
+    step(3,"Financing","Can the building pay its own note?","You borrow <b>"+money(o.loan)+"</b> and put in <b>"+money(o.cashInvested)+"</b>. The mortgage costs <b>"+money(o.debtService)+"</b>/yr, and NOI covers it <b>"+x(o.dscr)+"</b> times. What's left, your paycheck, is <b>"+money(o.cashFlow)+"</b>/yr.",s3)+
+    step(4,"Returns","What your dollars earn","Your cash earns <b>"+pct(o.coc)+"</b> cash-on-cash. Add loan paydown and appreciation and year-1 total return is <b>"+pct(o.totalReturn,1)+"</b>. Tax effects are for learning only; your CPA runs the real numbers.",s4)+
+    step(5,"Verdict","Pass / caution / fail vs. industry standards","Each check is scored against a typical industry standard, with your playbook's view alongside where it differs. Standards vary by market and lender, and rules of thumb are screens, not decisions.",s5);
+  postHeight();
+}
+
+/* ---------- tooltips ---------- */
+var pop=$("tipPop"), pinned=null, current=null;
+function tipHtml(k){
+  var t=TIPS[k]; if(!t) return "";
+  var live="";
+  if(t.c && state.o && revealed){ try{ if(k!=="flip"||state.o.flip) live='<div class="row"><span class="k">Your numbers</span><code>'+esc(t.c(state.inp,state.o))+'</code></div>'; }catch(e){} }
+  return '<button type="button" class="close" aria-label="Close">&times;</button><h4>'+esc(t.t)+'</h4>'+
+    '<div class="row">'+esc(t.w)+'</div>'+
+    '<div class="row"><span class="k">Formula</span><code>'+esc(t.f)+'</code></div>'+live+
+    '<div class="row bench"><span class="k">Industry standard</span>'+esc(t.ind)+'</div>'+
+    (t.pb?'<div class="pb"><span class="k">Your playbook</span>'+esc(t.pb)+(t.s?' <span style="opacity:.75">('+t.s+')</span>':'')+'</div>':'')+
+    '<div class="src">Typical figures. They vary by market, property class, and lender.</div>';
+}
+function showTip(btn){
+  if(current&&current!==btn) current.setAttribute("aria-expanded","false");
+  current=btn; btn.setAttribute("aria-expanded","true");
+  pop.innerHTML=tipHtml(btn.dataset.tip); pop.hidden=false;
+  var embedded=false; try{ embedded = window.self!==window.top; }catch(e){ embedded=true; }
+  if(window.innerWidth<640 && !embedded){ pop.classList.add("sheet"); return; }
+  pop.classList.remove("sheet");
+  var r=btn.getBoundingClientRect(), pw=Math.min(340,window.innerWidth-16);
+  pop.style.maxWidth=pw+"px";
+  var left=r.left+window.scrollX-12; left=Math.max(8+window.scrollX,Math.min(left,window.scrollX+window.innerWidth-pw-8));
+  pop.style.left=left+"px"; pop.style.top=(r.bottom+window.scrollY+8)+"px";
+  var ph=pop.offsetHeight;
+  if(r.bottom+8+ph>window.innerHeight && r.top-8-ph>0) pop.style.top=(r.top+window.scrollY-ph-8)+"px";
+}
+function hideTip(){ pop.hidden=true; pinned=null; if(current){current.setAttribute("aria-expanded","false"); current=null;} }
+document.addEventListener("mouseover",function(e){ var b=e.target.closest&&e.target.closest(".tip"); if(b&&!pinned) showTip(b); });
+document.addEventListener("mouseout",function(e){ var b=e.target.closest&&e.target.closest(".tip"); if(b&&!pinned&&!(e.relatedTarget&&pop.contains(e.relatedTarget))) hideTip(); });
+pop.addEventListener("mouseleave",function(){ if(!pinned) hideTip(); });
+document.addEventListener("click",function(e){
+  var b=e.target.closest(".tip");
+  if(b){ e.preventDefault(); if(pinned===b){ hideTip(); } else { showTip(b); pinned=b; } return; }
+  if(e.target.closest("#tipPop .close")){ hideTip(); return; }
+  if(pinned&&!pop.contains(e.target)) hideTip();
+  var h=e.target.closest(".step-head");
+  if(h){ var art=h.parentNode, open=art.getAttribute("aria-expanded")==="true"; art.setAttribute("aria-expanded",open?"false":"true"); h.setAttribute("aria-expanded",open?"false":"true"); postHeight(); }
+});
+document.addEventListener("focusin",function(e){ if(e.target.classList&&e.target.classList.contains("tip")&&!pinned) showTip(e.target); });
+document.addEventListener("focusout",function(e){ if(e.target.classList&&e.target.classList.contains("tip")&&!pinned) hideTip(); });
+document.addEventListener("keydown",function(e){ if(e.key==="Escape") hideTip(); });
+var lastW=window.innerWidth;
+window.addEventListener("resize",function(){ if(window.innerWidth!==lastW){ lastW=window.innerWidth; if(!pop.hidden) hideTip(); } });
+
+/* ---------- embed: report height to a parent page (auto-resizing iframe) ---------- */
+var lastH=0;
+function postHeight(){ try{ if(window.parent&&window.parent!==window){ var h=Math.ceil(document.body.getBoundingClientRect().height); if(h!==lastH){ lastH=h; window.parent.postMessage({type:"wcda:height",height:h},"*"); } } }catch(e){} }
+window.addEventListener("load",postHeight); window.addEventListener("resize",postHeight);
+document.querySelector("details.adv").addEventListener("toggle",postHeight);
+
+/* ---------- wiring ---------- */
+var revealed=false;
+function reveal(){ revealed=true; render(); $("results").hidden=false; postHeight(); $("results").scrollIntoView({behavior:"smooth",block:"start"}); }
+$("analyzeBtn").addEventListener("click",function(){ if(validate()) reveal(); else postHeight(); });
+document.querySelectorAll(".inputs input, .inputs select").forEach(function(el){ el.addEventListener("input",function(){
+  if(el.closest(".field")) el.closest(".field").classList.remove("missing");
+  if(revealed){ if(validate()) render(); }
+}); });
+$("exampleBtn").addEventListener("click",function(){ FIELDS.concat(["ptype"]).forEach(function(k){ $(k).value=EXAMPLE[k]; }); validate(); reveal(); });
+$("clearBtn").addEventListener("click",function(){
+  FIELDS.forEach(function(k){ $(k).value=""; }); $("ptype").value="res";
+  document.querySelectorAll(".field.missing").forEach(function(f){f.classList.remove("missing");});
+  $("formMsg").className="formmsg"; $("formMsg").textContent="";
+  revealed=false; hideTip(); $("results").hidden=true; $("summary").innerHTML=""; $("steps").innerHTML=""; state={inp:null,o:null,g:null};
+  window.scrollTo({top:0,behavior:"smooth"}); $("price").focus({preventScroll:true}); postHeight();
+});
+
+/* ---------- copy / download plain-text deal summary ---------- */
+function buildSummaryText(){
+  var st=state; if(!st||!st.o) return "";
+  var i=st.inp,o=st.o,g=st.g,v=verdict(i,o,g),L=[],blankList=[];
+  function has(id){ return raw(id)!==""; }
+  function line(label,val){ L.push(label+": "+val); }
+  var dt=new Date().toLocaleDateString("en-US",{year:"numeric",month:"long",day:"numeric"});
+  L.push("WEALTH CREATORS DEAL ANALYZER"); L.push("Deal summary \u2014 "+dt); L.push("========================================"); L.push("");
+  L.push("INPUTS");
+  line("Purchase price",money(i.price)); line("Units",i.units);
+  line("Monthly rent per unit",money(i.rent)+" ("+money(o.monthlyRent)+"/mo total)");
+  line("Down payment",i.downPct+"% ("+money(o.downPay)+")"); line("Interest rate",i.ratePct+"%"); line("Amortization",i.years+" years");
+  var ex=[["closing","Closing costs + initial repairs",function(){return money(i.closing);}],["vacancy","Vacancy & credit loss",function(){return i.vacancyPct+"%";}],
+    ["taxes","Property taxes",function(){return money(i.taxes)+"/yr";}],["insurance","Insurance",function(){return money(i.insurance)+"/yr";}],
+    ["maint","Maintenance & repairs",function(){return money(i.maint)+"/yr";}],["capex","CapEx reserve",function(){return money(i.capex)+"/yr";}],
+    ["mgmt","Management fee",function(){return i.mgmtPct+"% of EGI ("+money(o.mgmtFee)+"/yr)";}],["other","Utilities, leasing, admin",function(){return money(i.other)+"/yr";}]];
+  ex.forEach(function(e){ if(has(e[0])) line(e[1],e[2]()); else blankList.push(e[1]); });
+  var opt=[];
+  if(has("minCoc")) opt.push(["Minimum cash-on-cash (buy box)",i.minCoc+"%"]);
+  if(has("reservesHave")) opt.push(["Cash reserves after closing",money(i.reservesHave)]);
+  if(has("apprec")) opt.push(["Appreciation",i.apprecPct+"%/yr"]);
+  if(has("land")) opt.push(["Land share of price",i.landPct+"%"]);
+  if(has("land")||i.ptype==="com") opt.push(["Property type",i.ptype==="com"?"Commercial (39 yrs)":"Residential (27.5 yrs)"]);
+  if(has("arv")) opt.push(["After-repair value (ARV)",money(i.arv)]);
+  if(has("rehab")) opt.push(["Repairs (rehab)",money(i.rehab)]);
+  opt.forEach(function(e){ line(e[0],e[1]); });
+  if(blankList.length) line("Left blank (counted as 0)",blankList.join(", "));
+  L.push(""); L.push("KEY RESULTS");
+  line("Gross scheduled income",money(o.gsi)+"/yr"); line("Effective gross income",money(o.egi)+"/yr");
+  line("Operating expenses",money(o.opex)+"/yr"); line("Net operating income (NOI)",money(o.noi)+"/yr");
+  line("Loan amount",money(o.loan)+" (LTV "+pct(o.ltv,0)+")");
+  line("Annual debt service",money(o.debtService)+" ("+money(o.monthlyPI)+"/mo)");
+  line("Cash flow before tax",money(o.cashFlow)+"/yr ("+money(o.cashFlow/12)+"/mo; "+money(o.cfPerDoorMo)+"/door/mo)");
+  line("Cash invested",money(o.cashInvested));
+  line("Cap rate",pct(o.capRate)); line("Cash-on-cash return",pct(o.coc)); line("DSCR",x(o.dscr));
+  line("Gross rent multiplier",isFinite(o.grm)?o.grm.toFixed(2):"n/a"); line("Operating expense ratio",pct(o.oer,1));
+  line("1% rule",money(o.monthlyRent)+"/mo vs "+money(o.onePctTarget)+" target");
+  line("Reserve target (6 mo.)",money(o.reserveTarget));
+  line("Year-1 loan paydown",money(o.paydownY1)); line("Appreciation (yr 1)",money(o.appreciation));
+  line("Total return, year 1",pct(o.totalReturn,1)+" ("+money(o.totalReturnDollars)+")");
+  if(o.hasLand){ line("Depreciation",money(o.depreciation)+"/yr ("+o.deprLife+" yrs)"); line("Taxable income after interest & depreciation",money(o.taxableIncome)); }
+  if(o.flip) line("70% rule max offer",money(o.flip.maxOffer));
+  L.push(""); L.push("CHECKS VS INDUSTRY STANDARD");
+  SCORED.forEach(function(k){ var s2=g[k]; if(!s2) return; L.push("["+LABEL[s2[0]]+"] "+NAMES[k]+": "+s2[1]+(s2[2]?" (Your playbook: "+s2[2]+")":"")); });
+  L.push("");
+  var h3=$("summary").querySelector("h3"), pp=$("summary").querySelector("p");
+  L.push("OVERALL VERDICT: "+LABEL[v.overall]+" \u2014 "+(h3?h3.textContent:""));
+  if(pp) L.push(pp.textContent);
+  L.push(""); L.push("Educational tool only, not financial, tax, legal, or investment advice. Industry standards are typical figures that vary by market, property class, and lender. Verify locally and review with your CPA and attorney before acting.");
+  return L.join("\n").replace(/\u2212/g,"-");
+}
+function flashMsg(text,isErr){ var m=$("copyMsg"); m.textContent=text; m.className="copymsg show"+(isErr?" err":""); clearTimeout(flashMsg.t); flashMsg.t=setTimeout(function(){ m.className="copymsg"+(isErr?" err":""); },2200); }
+function fallbackCopy(text){
+  var ta=document.createElement("textarea"); ta.value=text; ta.setAttribute("readonly","");
+  ta.style.position="fixed"; ta.style.top="0"; ta.style.left="0"; ta.style.opacity="0"; ta.style.pointerEvents="none";
+  document.body.appendChild(ta); ta.focus(); ta.select(); try{ ta.setSelectionRange(0,text.length); }catch(e){}
+  var ok=false; try{ ok=document.execCommand("copy"); }catch(e){ ok=false; }
+  document.body.removeChild(ta); return ok;
+}
+function copyResults(){
+  var text=buildSummaryText(); if(!text) return;
+  function done(ok){ flashMsg(ok?"Copied!":"Couldn't copy. Use Download as .txt instead.",!ok); }
+  if(navigator.clipboard&&window.isSecureContext){
+    navigator.clipboard.writeText(text).then(function(){ done(true); },function(){ done(fallbackCopy(text)); });
+  } else done(fallbackCopy(text));
+}
+function downloadResults(){
+  var text=buildSummaryText(); if(!text) return;
+  try{
+    var blob=new Blob([text],{type:"text/plain;charset=utf-8"}), url=URL.createObjectURL(blob), a=document.createElement("a");
+    a.href=url; a.download="wealth-creators-deal-"+new Date().toISOString().slice(0,10)+".txt";
+    document.body.appendChild(a); a.click(); document.body.removeChild(a); setTimeout(function(){ URL.revokeObjectURL(url); },1000);
+    flashMsg("Downloaded.");
+  }catch(e){ flashMsg("Download isn't available here. Use Copy instead.",true); }
+}
+$("copyBtn").addEventListener("click",copyResults);
+$("dlBtn").addEventListener("click",downloadResults);
+
+window.WCDA={analyze:analyze,grade:grade,verdict:verdict,TIPS:TIPS,render:render,buildSummaryText:buildSummaryText,state:function(){return state;}};
+})();
+</script>
+</body>
+</html>
