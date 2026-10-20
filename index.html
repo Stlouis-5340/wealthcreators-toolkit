@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Your Real Estate Toolkit | Wealth Creators</title>
-<meta name="description" content="Free for Wealth Creators students: the Real Estate Playbook, the Deal Analyzer calculator, the Live Deal Lab practice deals and the answer key.">
+<meta name="description" content="Free for Wealth Creators students: the Real Estate Playbook, the Deal Analyzer calculator and the Live Deal Lab practice deals.">
 <meta name="theme-color" content="#0B3D2E">
 <link rel="preload" as="image" href="assets/playbook-cover.webp" type="image/webp">
 <style>
@@ -21,7 +21,9 @@ header.top img{height:40px;width:auto;display:block}
 .hero h1 span{color:var(--gold)}
 .hero p{font-size:clamp(17px,2.2vw,20px);color:var(--muted);margin:0}
 .free{display:inline-block;background:var(--green);color:var(--gold2);font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;padding:5px 12px;border-radius:999px;margin-bottom:16px}
-.cards{display:grid;grid-template-columns:1fr 1fr;gap:28px;padding-bottom:56px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding-bottom:56px}
+.cards .body h2{font-size:22px}
+@media (max-width:1000px) and (min-width:761px){.cards{grid-template-columns:1fr 1fr}.cards .card:last-child{grid-column:1/-1;justify-self:center;width:calc(50% - 12px)}}
 .card{position:relative;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 1px 2px rgba(11,61,46,.06),0 10px 30px rgba(11,61,46,.08);display:flex;flex-direction:column;transition:transform .18s ease,box-shadow .18s ease}
 .card:hover,.card:focus-within{transform:translateY(-4px);box-shadow:0 2px 4px rgba(11,61,46,.08),0 18px 40px rgba(11,61,46,.16)}
 .card picture{display:block;border-bottom:4px solid var(--gold);background:var(--green)}
@@ -88,12 +90,12 @@ footer p{margin:4px 0}
   <section class="hero">
     <div class="free">Free for students</div>
     <h1>Your Real Estate <span>Toolkit</span></h1>
-    <p>Learn the framework. Run the numbers. Practice on real-style deals. Check your answers.</p>
+    <p>Learn the framework. Run the numbers. Practice on real-style deals.</p>
     <div class="herocta">
       <button type="button" class="bigbtn" data-open-form>&#11015; Download Toolkit</button>
-      <p class="ctasub">4 tools. 1 free download.</p>
+      <p class="ctasub">3 tools. 1 free download.</p>
     </div>
-    <p class="unlockedmsg">&#10003; You're in. Your 4 downloads are ready below.</p>
+    <p class="unlockedmsg">&#10003; You're in. Your 3 downloads are ready below.</p>
   </section>
   <div class="sechead">
     <h2>What's inside your <span>toolkit</span></h2>
@@ -152,30 +154,13 @@ footer p{margin:4px 0}
         </div>
       </div>
     </article>
-    <article class="card">
-      <picture>
-        <source srcset="assets/answer-key-cover.webp" type="image/webp">
-        <img class="shot" src="assets/answer-key-cover.jpg" alt="Deal Lab Answer Key cover, answers blurred" width="1200" height="675" loading="lazy">
-      </picture>
-      <div class="body">
-        <span class="kicker"><b>4</b> Check</span>
-        <h2>Deal Lab Answer Key</h2>
-        <p>The verdict, the numbers and the why for every deal. Check your work and learn what separates a real deal from a trap.</p>
-        <p class="lockmsg">&#128274; Unlocks after you tap Download Toolkit.</p>
-        <div class="actions locked">
-          <a class="btn" href="./downloads/Wealth-Creators-Deal-Lab-Answer-Key.pdf" download="Wealth-Creators-Deal-Lab-Answer-Key.pdf">&#11015; Download the Answer Key (PDF)</a>
-          <p class="note">Run the 4 deals first. Then check your Downloads folder.</p>
-          <a class="sub" href="./downloads/Wealth-Creators-Deal-Lab-Answer-Key.pdf" target="_blank" rel="noopener">Or view in browser</a>
-        </div>
-      </div>
-    </article>
   </section>
   <section class="steps" aria-labelledby="howto">
     <h2 id="howto">How to use it</h2>
     <ol>
     <li><span><strong>Read the playbook</strong>Get the full framework in one sitting.</span></li>
     <li><span><strong>Run deals in the calculator</strong>Test any property in minutes.</span></li>
-    <li><span><strong>Practice with the Deal Lab</strong>Make the call, then check the key.</span></li>
+    <li><span><strong>Practice with the Deal Lab</strong>Make the call, then we review it live.</span></li>
     </ol>
   </section>
   <section class="cta" id="cta">
