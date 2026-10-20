@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Your Real Estate Toolkit | Wealth Creators</title>
-<meta name="description" content="Free for Wealth Creators students: the Real Estate Playbook (PDF) and the Deal Analyzer calculator.">
+<meta name="description" content="Free for Wealth Creators students: the Real Estate Playbook, the Deal Analyzer calculator, the Live Deal Lab practice deals and the answer key.">
 <meta name="theme-color" content="#0B3D2E">
 <link rel="preload" as="image" href="assets/playbook-cover.webp" type="image/webp">
 <style>
@@ -57,10 +57,28 @@ body.modal-open{overflow:hidden}
 .lockmsg{margin:0;font-size:14px;font-weight:600;color:var(--green)}
 body.unlocked .cta,body.unlocked .lockmsg{display:none}
 body:not(.unlocked) .card .btn::after{display:none}
+.herocta{margin-top:24px}
+.herocta .ctasub{margin-top:10px}
+.unlockedmsg{display:none;margin:22px 0 0;font-weight:700;color:var(--green)}
+body.unlocked .herocta{display:none}
+body.unlocked .unlockedmsg{display:block}
+.sechead{text-align:center;margin:8px 0 26px}
+.sechead h2{font-family:Georgia,"Times New Roman",serif;color:var(--green);font-size:clamp(26px,3.6vw,36px);margin:0 0 6px;line-height:1.15}
+.sechead h2 span{color:var(--gold)}
+.sechead p{margin:0;color:var(--muted);font-size:16px}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#9c7d16}
+.kicker b{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--green);color:var(--gold2);font-size:12px;letter-spacing:0}
+.body .kicker+h2{margin-top:-8px}
+.steps{margin:0 0 48px;padding:22px;background:linear-gradient(135deg,var(--green),var(--green2));border-radius:18px;border-bottom:4px solid var(--gold)}
+.steps ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;counter-reset:s}
+.steps li{display:flex;gap:14px;align-items:flex-start;color:#DDE9E2;font-size:14px;counter-increment:s}
+.steps li::before{content:counter(s);flex:none;display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;background:var(--gold);color:var(--green);font-weight:800;font-size:18px}
+.steps strong{display:block;color:#fff;font-family:Georgia,"Times New Roman",serif;font-size:18px;font-weight:700;margin-bottom:2px}
+.steps h2{margin:0 0 14px;color:var(--gold2);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
 footer{border-top:1px solid var(--line);padding:22px 0 30px;text-align:center;font-size:13px;color:var(--muted)}
 footer strong{color:var(--green)}
 footer p{margin:4px 0}
-@media (max-width:760px){.cards{grid-template-columns:1fr;gap:22px}.hero{padding:36px 0 26px}header.top .wrap{height:64px}header.top img{height:34px}.body{padding:18px 18px 22px}.btn{width:100%;text-align:center}.bigbtn{width:100%;padding:18px 20px;font-size:20px}}
+@media (max-width:760px){.cards{grid-template-columns:1fr;gap:22px}.steps{padding:20px 18px}.steps ol{grid-template-columns:1fr;gap:16px}.hero{padding:36px 0 26px}header.top .wrap{height:64px}header.top img{height:34px}.body{padding:18px 18px 22px}.btn{width:100%;text-align:center}.bigbtn{width:100%;padding:18px 20px;font-size:20px}}
 @media (prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
 </style>
 </head>
@@ -70,8 +88,17 @@ footer p{margin:4px 0}
   <section class="hero">
     <div class="free">Free for students</div>
     <h1>Your Real Estate <span>Toolkit</span></h1>
-    <p>Free for Wealth Creators students: the playbook and the calculator, in one place.</p>
+    <p>Learn the framework. Run the numbers. Practice on real-style deals. Check your answers.</p>
+    <div class="herocta">
+      <button type="button" class="bigbtn" data-open-form>&#11015; Download Toolkit</button>
+      <p class="ctasub">4 tools. 1 free download.</p>
+    </div>
+    <p class="unlockedmsg">&#10003; You're in. Your 4 downloads are ready below.</p>
   </section>
+  <div class="sechead">
+    <h2>What's inside your <span>toolkit</span></h2>
+    <p>Everything you need to go from "Is this a deal?" to a confident yes or no.</p>
+  </div>
   <section class="cards">
     <article class="card">
       <picture>
@@ -79,8 +106,9 @@ footer p{margin:4px 0}
         <img class="shot" src="assets/playbook-cover.jpg" alt="Wealth Creators Real Estate Playbook cover" width="1200" height="675">
       </picture>
       <div class="body">
+        <span class="kicker"><b>1</b> Learn</span>
         <h2>Real Estate Playbook</h2>
-        <p>From first door to 1031: how to buy it, fund it, run it, and keep more of what it makes.</p>
+        <p>The complete framework, from your first door to a 1031 exchange. How to buy it, fund it, run it, and keep more of what it makes.</p>
         <p class="lockmsg">&#128274; Unlocks after you tap Download Toolkit.</p>
         <div class="actions locked">
           <!-- FUTURE: email/name form can replace this direct download link -->
@@ -96,8 +124,9 @@ footer p{margin:4px 0}
         <img class="shot" src="assets/deal-analyzer.jpg" alt="Wealth Creators Deal Analyzer showing an analyzed example deal" width="1200" height="675" loading="lazy">
       </picture>
       <div class="body">
-        <h2>Deal Analyzer</h2>
-        <p>Run any rental deal step by step and check it against industry standards.</p>
+        <span class="kicker"><b>2</b> Analyze</span>
+        <h2>Deal Analyzer Calculator</h2>
+        <p>Plug in any rental and get a clear PASS, CAUTION or FAIL. It checks DSCR, cash flow, cash-on-cash and more against industry standards.</p>
         <p class="lockmsg">&#128274; Unlocks after you tap Download Toolkit.</p>
         <div class="actions locked">
           <a class="btn" href="./Wealth-Creators-Deal-Analyzer.html" download="Wealth-Creators-Deal-Analyzer.html">&#11015; Download the Deal Analyzer</a>
@@ -106,6 +135,48 @@ footer p{margin:4px 0}
         </div>
       </div>
     </article>
+    <article class="card">
+      <picture>
+        <source srcset="assets/deal-lab-cover.webp" type="image/webp">
+        <img class="shot" src="assets/deal-lab-cover.jpg" alt="Live Deal Lab class handout cover with four practice deals" width="1200" height="675" loading="lazy">
+      </picture>
+      <div class="body">
+        <span class="kicker"><b>3</b> Practice</span>
+        <h2>Live Deal Lab: 4 Practice Deals</h2>
+        <p>Four realistic deals, from a single-family rental to a 12-unit building. Run each one through the calculator and make the call.</p>
+        <p class="lockmsg">&#128274; Unlocks after you tap Download Toolkit.</p>
+        <div class="actions locked">
+          <a class="btn" href="./downloads/Wealth-Creators-Live-Deal-Lab.pdf" download="Wealth-Creators-Live-Deal-Lab.pdf">&#11015; Download the Deal Lab (PDF)</a>
+          <p class="note">Check your Downloads folder.</p>
+          <a class="sub" href="./downloads/Wealth-Creators-Live-Deal-Lab.pdf" target="_blank" rel="noopener">Or view in browser</a>
+        </div>
+      </div>
+    </article>
+    <article class="card">
+      <picture>
+        <source srcset="assets/answer-key-cover.webp" type="image/webp">
+        <img class="shot" src="assets/answer-key-cover.jpg" alt="Deal Lab Answer Key cover, answers blurred" width="1200" height="675" loading="lazy">
+      </picture>
+      <div class="body">
+        <span class="kicker"><b>4</b> Check</span>
+        <h2>Deal Lab Answer Key</h2>
+        <p>The verdict, the numbers and the why for every deal. Check your work and learn what separates a real deal from a trap.</p>
+        <p class="lockmsg">&#128274; Unlocks after you tap Download Toolkit.</p>
+        <div class="actions locked">
+          <a class="btn" href="./downloads/Wealth-Creators-Deal-Lab-Answer-Key.pdf" download="Wealth-Creators-Deal-Lab-Answer-Key.pdf">&#11015; Download the Answer Key (PDF)</a>
+          <p class="note">Run the 4 deals first. Then check your Downloads folder.</p>
+          <a class="sub" href="./downloads/Wealth-Creators-Deal-Lab-Answer-Key.pdf" target="_blank" rel="noopener">Or view in browser</a>
+        </div>
+      </div>
+    </article>
+  </section>
+  <section class="steps" aria-labelledby="howto">
+    <h2 id="howto">How to use it</h2>
+    <ol>
+    <li><span><strong>Read the playbook</strong>Get the full framework in one sitting.</span></li>
+    <li><span><strong>Run deals in the calculator</strong>Test any property in minutes.</span></li>
+    <li><span><strong>Practice with the Deal Lab</strong>Make the call, then check the key.</span></li>
+    </ol>
   </section>
   <section class="cta" id="cta">
     <button type="button" class="bigbtn" id="openForm">&#11015; Download Toolkit</button>
@@ -142,6 +213,7 @@ var m=document.getElementById('modal'),f=m.querySelector('iframe'),opener=null;
 function openM(){opener=document.activeElement;if(!f.getAttribute('src'))f.src=f.getAttribute('data-src');m.hidden=false;b.classList.add('modal-open');document.getElementById('mclose').focus();}
 function closeM(){m.hidden=true;b.classList.remove('modal-open');if(opener&&opener.focus)opener.focus();}
 document.getElementById('openForm').addEventListener('click',openM);
+document.querySelectorAll('[data-open-form]').forEach(function(x){x.addEventListener('click',openM);});
 document.getElementById('mclose').addEventListener('click',closeM);
 m.addEventListener('mousedown',function(e){if(e.target===m)closeM();});
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!m.hidden)closeM();});
