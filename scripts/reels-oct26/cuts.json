@@ -1,0 +1,58 @@
+{
+  "vimeo": {
+    "page": "https://vimeo.com/1233097501/da48e7b9b4",
+    "player": "https://player.vimeo.com/video/1233097501?h=da48e7b9b4",
+    "referer": "https://vimeo.com/",
+    "video_format": "hls-fastly_skyfire-1533",
+    "audio_format": "hls-fastly_skyfire-audio-high-English"
+  },
+  "youtube": {
+    "page": "https://www.youtube.com/watch?v=Erb1J65ozQ4",
+    "note": "Preferred source for the loan / interest-rate-later analogy. If yt-dlp cannot fetch it, reel 3 uses the Vimeo tax-deferred fallback."
+  },
+  "dropbox": {
+    "folder_url": "https://www.dropbox.com/scl/fo/gzh9f50in6rt1qo7a9c1e/AIJVAce-yL93Rvjyv5c_A-I/27?rlkey=607fyy3m97653udbpdy33xce7&dl=1",
+    "filename": "Money Babies_ Your Guide to Buying Assets.mp4"
+  },
+  "loudnorm": {
+    "I": -16,
+    "TP": -1.5,
+    "LRA": 11
+  },
+  "speaker_crop": {
+    "x": 1244,
+    "y": 0,
+    "w": 676,
+    "h": 1200,
+    "note": "1920x1200 webinar. Slides sit on the left; the speaker is the right-hand column. 676x1200 is a 9:16 crop (even dimensions) anchored to that column, then scaled to 1080x1920."
+  },
+  "reels": [
+    {
+      "id": "reel1_yield_real",
+      "source": "vimeo",
+      "source_in": 2088.84,
+      "source_out": 2158.55,
+      "download_pad": 8,
+      "crop": "speaker",
+      "window_name": "yield_window"
+    },
+    {
+      "id": "reel2_money_babies_real",
+      "source": "dropbox",
+      "source_in": 0,
+      "source_out": null,
+      "crop": "none",
+      "window_name": "money_babies"
+    },
+    {
+      "id": "reel3_loan_tax_real",
+      "source": "vimeo",
+      "fallback_from": "youtube",
+      "source_in": 1923.4,
+      "source_out": 1979.85,
+      "download_pad": 8,
+      "crop": "speaker",
+      "window_name": "tax_window"
+    }
+  ]
+}
